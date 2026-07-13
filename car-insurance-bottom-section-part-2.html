@@ -6,7 +6,7 @@
     <title>Car Insurance Bottom Section Part 2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&amp;family=Open+Sans:wght@400;600;700;800&amp;display=swap">
     <link rel="stylesheet" href="css/car-insurance-page.css">
     <script src="js/car-insurance-page.js" defer></script>
 </head>
@@ -18,7 +18,7 @@
     <div class="insurance-content">
 
         <div class="insurance-image">
-            <img src="https://ukp.tcb-cdn.com/images/blog/car_image_18052026_new.png" alt="White car">
+            <img src="assets/car-insurance-intro.png" width="344" height="344" alt="White car">
         </div>
 
         <div class="insurance-text">
@@ -48,278 +48,174 @@
 
 
 
-<section class="insurance-form-section">
+<section class="insurance-form-section" aria-labelledby="insurance-cover-comparison-title">
+    <div class="insurance-form-copy">
+        <h2 id="insurance-cover-comparison-title">Compare car insurance cover levels</h2>
+        <p>See how comprehensive, third-party fire and theft, and third-party car insurance typically compare across common cover features.</p>
+    </div>
 
-    <div class="insurance-form-comparison-table">
+    <div class="insurance-cover-table-wrap">
+        <table class="insurance-cover-table">
+            <caption>Car insurance cover comparison</caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="insurance-cover-table__feature-heading">Cover feature</th>
+                    <th scope="col" class="insurance-cover-table__plan insurance-cover-table__plan--comprehensive">Comprehensive</th>
+                    <th scope="col" class="insurance-cover-table__plan insurance-cover-table__plan--fire-theft">Third-party,<br>Fire and Theft</th>
+                    <th scope="col" class="insurance-cover-table__plan insurance-cover-table__plan--third-party">Third-party</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Damage to another person's car after an accident you caused</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Damage to another person's property that you caused</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Injury to other people (including your own passengers) after an accident you caused</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Damage to your own car after an accident you caused</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Damage caused by fire, explosion or lightning</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Car theft (and damage caused by an attempted theft)</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Theft, loss or damage of personal belongings in your car</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Medical treatment for yourself after an accident you caused</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Damages from a collision caused by an uninsured driver</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Damage caused by floods</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Damage from fire caused by mechanical or electrical failure</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Windscreen repair or replacement</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">A courtesy car if yours is out of action for a period</th>
+                    <td><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                    <td><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <div class="insurance-form-column-highlight insurance-form-column-1"></div>
-        <div class="insurance-form-column-highlight insurance-form-column-2"></div>
-        <div class="insurance-form-column-highlight insurance-form-column-3"></div>
-
-        <div class="insurance-form-comparison-header">
-            <div class="insurance-form-feature-col"></div>
-
-            <div class="insurance-form-plan-col insurance-form-comprehensive insurance-form-green1">
+    <div class="insurance-form-mobile-table" aria-label="Car insurance cover comparison by cover level">
+        <div class="insurance-form-accordion-item">
+            <button class="insurance-form-accordion-header" type="button" aria-expanded="false" aria-controls="mobile-cover-comprehensive">
                 <span>Comprehensive</span>
+                <span class="insurance-form-accordion-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16" focusable="false"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            </button>
+            <div class="insurance-form-accordion-content" id="mobile-cover-comprehensive" hidden="hidden">
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to another person's car after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to another person's property that you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Injury to other people after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to your own car after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage caused by fire, explosion or lightning</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Car theft and damage caused by an attempted theft</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Theft, loss or damage of personal belongings in your car</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Medical treatment for yourself after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damages from a collision caused by an uninsured driver</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage caused by floods</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage from fire caused by mechanical or electrical failure</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Windscreen repair or replacement</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">A courtesy car if yours is out of action for a period</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
             </div>
+        </div>
 
-            <div class="insurance-form-plan-col insurance-form-fire-theft insurance-form-green2 insurance-form-plan-col--compact">
-                <span>Third-party,<br>Fire and Theft</span>
+        <div class="insurance-form-accordion-item">
+            <button class="insurance-form-accordion-header insurance-form-fire-theft-header" type="button" aria-expanded="false" aria-controls="mobile-cover-fire-theft">
+                <span>Third-party, Fire and Theft</span>
+                <span class="insurance-form-accordion-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16" focusable="false"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            </button>
+            <div class="insurance-form-accordion-content" id="mobile-cover-fire-theft" hidden="hidden">
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to another person's car after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to another person's property that you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Injury to other people after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to your own car after an accident you caused</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage caused by fire, explosion or lightning</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Car theft and damage caused by an attempted theft</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Theft, loss or damage of personal belongings in your car</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Medical treatment for yourself after an accident you caused</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damages from a collision caused by an uninsured driver</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage caused by floods</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage from fire caused by mechanical or electrical failure</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Windscreen repair or replacement</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">A courtesy car if yours is out of action for a period</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
             </div>
+        </div>
 
-            <div class="insurance-form-plan-col insurance-form-third-party insurance-form-green3">
+        <div class="insurance-form-accordion-item">
+            <button class="insurance-form-accordion-header insurance-form-third-party-header" type="button" aria-expanded="false" aria-controls="mobile-cover-third-party">
                 <span>Third-party</span>
+                <span class="insurance-form-accordion-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16" focusable="false"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+            </button>
+            <div class="insurance-form-accordion-content" id="mobile-cover-third-party" hidden="hidden">
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to another person's car after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to another person's property that you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Injury to other people after an accident you caused</span><span class="comparison-icon comparison-icon--included"><img src="assets/icon-included.svg" alt="Included" width="18" height="14"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage to your own car after an accident you caused</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage caused by fire, explosion or lightning</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Car theft and damage caused by an attempted theft</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Theft, loss or damage of personal belongings in your car</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Medical treatment for yourself after an accident you caused</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damages from a collision caused by an uninsured driver</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage caused by floods</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Damage from fire caused by mechanical or electrical failure</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">Windscreen repair or replacement</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
+                <div class="insurance-form-feature-row"><span class="insurance-form-feature-label">A courtesy car if yours is out of action for a period</span><span class="comparison-icon comparison-icon--not-included"><img src="assets/icon-not-included.svg" alt="Not included" width="16" height="16"></span></div>
             </div>
         </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Damage to another person's car after an accident you caused
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green2" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green3" role="img" aria-label="Included">&#10003;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Damage to another person's property that you caused
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green2" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green3" role="img" aria-label="Included">&#10003;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Injury to other people (including your own passengers) after an accident you caused
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green2" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green3" role="img" aria-label="Included">&#10003;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Damage to your own car after an accident you caused
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Damage caused by fire, explosion or lightning
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green2" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Car theft (and damage caused by an attempted theft)
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-tick insurance-form-green2" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Theft, loss or damage of personal belongings in your car
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Medical treatment for yourself after an accident you caused
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Damages from a collision caused by an uninsured driver
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Damage caused by floods
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Damage from fire caused by mechanical or electrical failure
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                Windscreen repair or replacement
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col">
-                A courtesy car if yours is out of action for a period
-            </div>
-            <div class="insurance-form-tick insurance-form-green1" role="img" aria-label="Included">&#10003;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-            <div class="insurance-form-cross" role="img" aria-label="Not included">&#10005;</div>
-        </div>
-
-        <div class="insurance-form-comparison-row">
-            <div class="insurance-form-feature-col insurance-form-feature-col--spacer">
-                &#160;
-            </div>
-            <div>&#160;</div>
-            <div>&#160;</div>
-            <div>&#160;</div>
-        </div>
-
     </div>
-
-<div class="insurance-form-mobile-table">
-
-    <div class="insurance-form-accordion-item active">
-
-        <button class="insurance-form-accordion-header" type="button" aria-expanded="true" aria-controls="bottom-cover-answer-1">
-            <span>Comprehensive</span>
-
-            <span class="insurance-form-accordion-icon">
-                <svg width="20" height="12" viewbox="0 0 20 12">
-                    <path d="M2 2L10 10L18 2" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                </svg>
-            </span>
-        </button>
-
-        <div class="insurance-form-accordion-content" id="bottom-cover-answer-1">
-
-            <div class="insurance-form-feature-row">
-                <span>Damage to another person's car after an accident you caused</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div class="insurance-form-feature-row">
-                <span>Damage to another person's property that you caused</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div class="insurance-form-feature-row">
-                <span>Injury to other people after an accident you caused</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div class="insurance-form-feature-row">
-                <span>Damage to your own car after an accident you caused</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div class="insurance-form-feature-row">
-                <span>Damage caused by fire, explosion or lightning</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div>&#160;</div>
-
-        </div>
-
-    </div>
-
-    <div class="insurance-form-accordion-item">
-
-        <button class="insurance-form-accordion-header insurance-form-fire-theft-header" type="button" aria-expanded="false" aria-controls="bottom-cover-answer-2">
-            <span>Third-party, Fire &amp; Theft</span>
-
-            <span class="insurance-form-accordion-icon">
-                <svg width="20" height="12" viewbox="0 0 20 12">
-                    <path d="M2 2L10 10L18 2" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                </svg>
-            </span>
-        </button>
-
-        <div class="insurance-form-accordion-content" id="bottom-cover-answer-2" hidden="hidden">
-
-            <div class="insurance-form-feature-row">
-                <span>Damage to another person's car after an accident you caused</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div class="insurance-form-feature-row">
-                <span>Damage caused by fire</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div class="insurance-form-feature-row">
-                <span>Car theft</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div>&#160;</div>
-
-        </div>
-
-    </div>
-
-    <div class="insurance-form-accordion-item">
-
-        <button class="insurance-form-accordion-header insurance-form-third-party-header" type="button" aria-expanded="false" aria-controls="bottom-cover-answer-3">
-            <span>Third-party</span>
-
-            <span class="insurance-form-accordion-icon">
-                <svg width="20" height="12" viewbox="0 0 20 12">
-                    <path d="M2 2L10 10L18 2" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                </svg>
-            </span>
-        </button>
-
-        <div class="insurance-form-accordion-content" id="bottom-cover-answer-3" hidden="hidden">
-
-            <div class="insurance-form-feature-row">
-                <span>Damage to another person's car after an accident you caused</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div class="insurance-form-feature-row">
-                <span>Damage to another person's property that you caused</span>
-                <span class="insurance-form-tick" role="img" aria-label="Included">&#10003;</span>
-            </div>
-
-            <div>&#160;</div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-
 </section>
-
-
 
 <section class="whats-covered-section">
       <h2 class="other-types-heading">Other types of car insurance</h2>
@@ -331,9 +227,10 @@
 
  <section class="other-types-section">
 
+        <div class="other-types-slider" aria-label="Other types of car insurance">
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/blog/temporary_icon_car_insurance.png" alt="Temporary">
+                <img src="https://ukp.tcb-cdn.com/images/blog/temporary_icon_car_insurance.png" alt="">
                 <h3>Temporary</h3>
                 <p>
                     Temporary car insurance is for drivers who need short-term coverage
@@ -344,7 +241,7 @@
 
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/62e04cd0441f9481a4a002e489f36e11d504630c.png" alt="Pay as you go">
+                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/62e04cd0441f9481a4a002e489f36e11d504630c.png" alt="">
                 <h3>Pay-as-you-go</h3>
                 <p>
                     Pay-as-you-go car insurance means you'll pay less when you drive fewer miles.
@@ -356,7 +253,7 @@
 
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/72e7b227b005c39e2bdbb1fbfa145ec8c21bfc47.png" alt="Learner Driver">
+                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/72e7b227b005c39e2bdbb1fbfa145ec8c21bfc47.png" alt="">
                 <h3>Learner Driver</h3>
                 <p>
                     Learner driver insurance allows you to legally practice driving in someone
@@ -367,7 +264,7 @@
 
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/8639699be7aa9b838bc9b4549d66e4852202a07b.png" alt="Black Box">
+                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/8639699be7aa9b838bc9b4549d66e4852202a07b.png" alt="">
                 <h3>Black Box</h3>
                 <p>
                     Black box insurance (or telematics insurance) can be a good idea for new
@@ -379,7 +276,7 @@
 
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/94fdbf3fd8b827a4c762f0fb427ea0a9a5b5e6c9.png" alt="Specialist">
+                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/94fdbf3fd8b827a4c762f0fb427ea0a9a5b5e6c9.png" alt="">
                 <h3>Specialist</h3>
                 <p>
                     Specialist car insurance is for high-value, modified or classic cars,
@@ -390,7 +287,7 @@
 
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/9cc38c374eaf5fdf076b2493c59f2ed3a74f97f7_new.png" alt="Electric Car">
+                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/9cc38c374eaf5fdf076b2493c59f2ed3a74f97f7_new.png" alt="">
                 <h3>Electric</h3>
                 <p>
                     Electric car insurance will provide extra cover for your car battery,
@@ -401,7 +298,7 @@
 
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/dc4f366914ee3aeaa9c1cb58c5f399e5a7e92695.png" alt="Business">
+                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/dc4f366914ee3aeaa9c1cb58c5f399e5a7e92695.png" alt="">
                 <h3>Business</h3>
                 <p>
                     Business car insurance provides cover when driving a car that you use
@@ -412,7 +309,7 @@
 
         <div class="types-card-container">
             <div class="types-card">
-                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/cf3a55f5aec5778a63e5cbeb84de26eb4586d2a6.png" alt="Commercial">
+                <img src="https://ukp.tcb-cdn.com/images/promotions/hubs/cf3a55f5aec5778a63e5cbeb84de26eb4586d2a6.png" alt="">
                 <h3>Commercial</h3>
                 <p>
                     Commercial car insurance provides cover when you are driving a vehicle
@@ -420,6 +317,7 @@
                     drivers, delivery van drivers and driving instructors.
                 </p>
             </div>
+        </div>
         </div>
 
     </section>
@@ -554,26 +452,26 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
 <div class="guide-wrapper">
 
         <div class="road-container">
-            <svg class="road-svg" viewbox="0 0 1200 1800">
+            <svg class="road-svg" viewBox="0 0 857 868" aria-hidden="true" focusable="false">
 
       <path class="road-path" d="
-        M100 370
-        H850
-        C1080 370 1080 520 1080 720
-        C1080 920 1000 1080 850 1080
-        H500
-        C250 1080 180 1230 180 1430
-        V1720
+        M-80 272
+        H598
+        C690 272 724 336 724 405
+        C724 485 670 538 578 538
+        H332
+        C270 538 238 582 238 646
+        V868
     "></path>
 
 <path class="road-center" d="
-        M100 370
-        H850
-        C1080 370 1080 520 1080 720
-        C1080 920 1000 1080 850 1080
-        H500
-        C250 1080 180 1230 180 1430
-        V1720
+        M-80 272
+        H598
+        C690 272 724 336 724 405
+        C724 485 670 538 578 538
+        H332
+        C270 538 238 582 238 646
+        V868
     "></path>
 
             </svg>
@@ -598,7 +496,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
                     other levels of cover. Take some time to compare car insurance quotes to
                     ensure you're getting the right cover to suit your needs.
                 </p>
-                <div class="tip-number">&#9312;</div>
+                <div class="tip-number">1</div>
             </div>
 
             <div class="tip-card tip-2">
@@ -609,7 +507,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
                     To ensure you can afford to pay in full when your insurance is up for renewal,
                     you could set aside a portion each month throughout the year.
                 </p>
-                <div class="tip-number">&#9313;</div>
+                <div class="tip-number">2</div>
             </div>
 
             <div class="tip-card tip-3">
@@ -622,7 +520,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
                     consecutive years without claiming on your insurance, even if you switch car
                     insurance providers.
                 </p>
-                <div class="tip-number">&#9314;</div>
+                <div class="tip-number">3</div>
             </div>
 
             <div class="tip-card tip-4">
@@ -634,7 +532,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
                     upfront. Only set a voluntary excess you're confident you can afford to pay in
                     the event of a claim.
                 </p>
-                <div class="tip-number">&#9315;</div>
+                <div class="tip-number">4</div>
             </div>
 
             <div class="tip-card tip-5">
@@ -644,7 +542,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
                     get a multi-car policy instead of separate ones. This is because many
                     insurance companies offer multi-car discounts.
                 </p>
-                <div class="tip-number">&#9316;</div>
+                <div class="tip-number">5</div>
             </div>
 
             <div class="tip-card tip-6">
@@ -657,7 +555,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
                     You may find that fully comp has everything you need without adding
                     additional cover.
                 </p>
-                <div class="tip-number">&#9317;</div>
+                <div class="tip-number">6</div>
             </div>
 
             <div class="tip-card tip-7">
@@ -669,7 +567,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
                     lower-risk driver, although this isn't guaranteed. Only add someone as a
                     named driver if they will actually be driving your car.
                 </p>
-                <div class="tip-number">&#9318;</div>
+                <div class="tip-number">7</div>
             </div>
 
         </div>
@@ -814,7 +712,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
 
         <div class="faq-left">
 
-            <h2 class="faq-title">TopCashback FAQs</h2>
+            <h2 class="faq-title">Car Insurance FAQs</h2>
 
             <div class="faq-item">
 
@@ -904,7 +802,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
         </div>
 
         <div class="faq-right">
-            <img src="https://ukp.tcb-cdn.com/images/blog/FAQ_Image_18052026.png" alt="FAQ Illustration">
+            <img src="assets/faq-bird-figma.png" width="900" height="900" alt="">
         </div>
 
     </section>

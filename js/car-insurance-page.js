@@ -1,6 +1,12 @@
 (() => {
     const EXPANDED_ICON = "\u2212";
     const COLLAPSED_ICON = "+";
+    const FAQ_ANIMATION_DURATION = 360;
+    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function prefersReducedMotion() {
+        return reduceMotionQuery.matches;
+    }
 
     function directAccordionItems(container) {
         return Array.from(container.children).filter((child) => (
@@ -9,24 +15,116 @@
         ));
     }
 
-    function setFaqItemState(item, expanded) {
+    function cleanFaqAnswerStyles(answer) {
+        answer.style.maxHeight = "";
+        answer.style.opacity = "";
+        answer.style.overflow = "";
+    }
+
+    function scrollFaqItemIntoView(item) {
+        const rect = item.getBoundingClientRect();
+        const needsScroll = rect.top < 16 || rect.bottom > window.innerHeight - 24;
+
+        if (!needsScroll) {
+            return;
+        }
+
+        item.scrollIntoView({
+            behavior: prefersReducedMotion() ? "auto" : "smooth",
+            block: "nearest",
+        });
+    }
+
+    function setFaqItemState(item, expanded, options = {}) {
         const button = item.querySelector(":scope > .faq-question");
         const answer = item.querySelector(":scope > .faq-answer");
         const icon = button ? button.querySelector(".faq-icon") : null;
+        const animate = Boolean(options.animate) && !prefersReducedMotion();
 
-        item.classList.toggle("active", expanded);
+        if (answer && answer.faqAnimationTimer) {
+            window.clearTimeout(answer.faqAnimationTimer);
+        }
 
         if (button) {
             button.setAttribute("aria-expanded", String(expanded));
         }
 
-        if (answer) {
-            answer.hidden = !expanded;
-        }
-
         if (icon) {
             icon.textContent = expanded ? EXPANDED_ICON : COLLAPSED_ICON;
         }
+
+        if (!answer) {
+            item.classList.toggle("active", expanded);
+            return;
+        }
+
+        const alreadyExpanded = item.classList.contains("active") &&
+            !item.classList.contains("is-closing") &&
+            !answer.hidden;
+        const alreadyCollapsed = !item.classList.contains("active") &&
+            !item.classList.contains("is-closing") &&
+            answer.hidden;
+
+        if ((expanded && alreadyExpanded) || (!expanded && alreadyCollapsed)) {
+            cleanFaqAnswerStyles(answer);
+            return;
+        }
+
+        if (!animate) {
+            item.classList.toggle("active", expanded);
+            item.classList.remove("is-closing");
+            answer.hidden = !expanded;
+            cleanFaqAnswerStyles(answer);
+
+            if (expanded && options.scroll) {
+                scrollFaqItemIntoView(item);
+            }
+
+            return;
+        }
+
+        if (expanded) {
+            item.classList.remove("is-closing");
+            item.classList.add("active");
+            answer.hidden = false;
+            answer.style.overflow = "hidden";
+            answer.style.maxHeight = "0px";
+            answer.style.opacity = "0";
+            answer.offsetHeight;
+
+            window.requestAnimationFrame(() => {
+                answer.style.maxHeight = `${answer.scrollHeight}px`;
+                answer.style.opacity = "1";
+            });
+
+            answer.faqAnimationTimer = window.setTimeout(() => {
+                cleanFaqAnswerStyles(answer);
+
+                if (options.scroll) {
+                    scrollFaqItemIntoView(item);
+                }
+            }, FAQ_ANIMATION_DURATION);
+
+            return;
+        }
+
+        item.classList.add("is-closing");
+        answer.hidden = false;
+        answer.style.overflow = "hidden";
+        answer.style.maxHeight = `${answer.scrollHeight}px`;
+        answer.style.opacity = "1";
+        answer.offsetHeight;
+
+        window.requestAnimationFrame(() => {
+            answer.style.maxHeight = "0px";
+            answer.style.opacity = "0";
+        });
+
+        answer.faqAnimationTimer = window.setTimeout(() => {
+            item.classList.remove("active", "is-closing");
+            answer.hidden = true;
+            cleanFaqAnswerStyles(answer);
+        }, FAQ_ANIMATION_DURATION);
     }
 
     function initFaqAccordions() {
@@ -45,8 +143,19 @@
                 const siblings = parent ? directAccordionItems(parent) : [item];
                 const shouldOpen = !item.classList.contains("active");
 
-                siblings.forEach((sibling) => setFaqItemState(sibling, false));
-                setFaqItemState(item, shouldOpen);
+                siblings.forEach((sibling) => {
+                    const siblingIsOpen = sibling.classList.contains("active") ||
+                        sibling.classList.contains("is-closing");
+
+                    if (sibling !== item && siblingIsOpen) {
+                        setFaqItemState(sibling, false, { animate: true });
+                    }
+                });
+
+                setFaqItemState(item, shouldOpen, {
+                    animate: true,
+                    scroll: shouldOpen,
+                });
             });
         });
     }
@@ -144,13 +253,14 @@
     }
 
     function initOtherTypesDots() {
-        document.querySelectorAll(".other-types-section").forEach((slider) => {
+        document.querySelectorAll(".other-types-section").forEach((section) => {
+            const slider = section.querySelector(".other-types-slider") || section;
             const cards = Array.from(slider.querySelectorAll(".types-card-container"));
-            const existingDots = slider.nextElementSibling && slider.nextElementSibling.classList.contains("carousel-dots")
-                ? slider.nextElementSibling
+            const existingDots = section.nextElementSibling && section.nextElementSibling.classList.contains("carousel-dots")
+                ? section.nextElementSibling
                 : null;
 
-            if (!window.matchMedia("(max-width: 576px)").matches || cards.length < 2) {
+            if (!window.matchMedia("(max-width: 768px)").matches || cards.length < 2) {
                 if (existingDots) {
                     existingDots.remove();
                 }
@@ -178,14 +288,16 @@
             });
 
             if (!existingDots) {
-                slider.parentNode.insertBefore(dotsContainer, slider.nextSibling);
+                section.parentNode.insertBefore(dotsContainer, section.nextSibling);
             }
 
             const dots = Array.from(dotsContainer.querySelectorAll(".carousel-dot"));
 
             function updateDots() {
                 const firstCard = cards[0];
-                const cardWidth = firstCard ? firstCard.offsetWidth + 20 : 1;
+                const styles = window.getComputedStyle(slider);
+                const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+                const cardWidth = firstCard ? firstCard.offsetWidth + gap : 1;
                 const currentIndex = Math.round(slider.scrollLeft / cardWidth);
 
                 dots.forEach((dot, index) => {
@@ -198,11 +310,216 @@
         });
     }
 
+    function initRoadScrollAnimation() {
+        const wrapper = document.querySelector(".guide-wrapper");
+        const cars = wrapper ? Array.from(wrapper.querySelectorAll(".road-car")) : [];
+        const svg = wrapper ? wrapper.querySelector(".road-svg") : null;
+        const roadPath = wrapper ? wrapper.querySelector(".road-center") : null;
+
+        if (!wrapper || !cars.length) {
+            return;
+        }
+
+        const reduceMotion = prefersReducedMotion();
+        const pathPositions = [
+            { progress: 0.13, travel: 0.06 },
+            { progress: 0.25, travel: 0.058 },
+            { progress: 0.39, travel: 0.054 },
+            { progress: 0.59, travel: 0.06 },
+            { progress: 0.735, travel: 0.062 },
+            { progress: 0.845, travel: 0.05 },
+            { progress: 0.925, travel: 0.044 },
+        ];
+        const movement = [
+            { x: 88, y: 0, r: 0 },
+            { x: 78, y: 0, r: 0 },
+            { x: 68, y: 10, r: 3 },
+            { x: -52, y: 70, r: 7 },
+            { x: -78, y: 0, r: 0 },
+            { x: 0, y: 76, r: 0 },
+            { x: 0, y: 70, r: 0 },
+        ];
+
+        let pathLength = 0;
+        let ticking = false;
+
+        function syncPathMetrics() {
+            if (!svg || !roadPath || typeof roadPath.getTotalLength !== "function") {
+                wrapper.classList.remove("road-path-cars-ready");
+                return false;
+            }
+
+            pathLength = roadPath.getTotalLength();
+            wrapper.classList.toggle("road-path-cars-ready", pathLength > 0);
+            return pathLength > 0;
+        }
+
+        function setCarOnRoad(car, config, eased) {
+            const svgRect = svg.getBoundingClientRect();
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const viewBox = svg.viewBox.baseVal;
+
+            if (!viewBox.width || !viewBox.height) {
+                return;
+            }
+
+            const progress = Math.max(0, Math.min(0.985, config.progress + eased * config.travel));
+            const distance = progress * pathLength;
+            const tangentOffset = Math.max(pathLength * 0.002, 1);
+            const point = roadPath.getPointAtLength(distance);
+            const before = roadPath.getPointAtLength(Math.max(0, distance - tangentOffset));
+            const after = roadPath.getPointAtLength(Math.min(pathLength, distance + tangentOffset));
+            const x = svgRect.left - wrapperRect.left + ((point.x - viewBox.x) / viewBox.width) * svgRect.width;
+            const y = svgRect.top - wrapperRect.top + ((point.y - viewBox.y) / viewBox.height) * svgRect.height;
+            const angle = Math.atan2(after.y - before.y, after.x - before.x) * (180 / Math.PI);
+
+            car.style.left = `${x.toFixed(2)}px`;
+            car.style.top = `${y.toFixed(2)}px`;
+            car.style.setProperty("--road-angle", `${angle.toFixed(2)}deg`);
+        }
+
+        function updateCars() {
+            const rect = wrapper.getBoundingClientRect();
+            const range = window.innerHeight + rect.height;
+            const rawProgress = (window.innerHeight - rect.top) / range;
+            const progress = Math.max(0, Math.min(1, rawProgress));
+            const eased = reduceMotion ? 0 : progress * progress * (3 - (2 * progress));
+            const canUsePath = pathLength > 0 || syncPathMetrics();
+
+            cars.forEach((car, index) => {
+                if (canUsePath) {
+                    setCarOnRoad(car, pathPositions[index % pathPositions.length], eased);
+                    return;
+                }
+
+                const move = movement[index % movement.length];
+                car.style.setProperty("--scroll-x", `${(eased * move.x).toFixed(2)}px`);
+                car.style.setProperty("--scroll-y", `${(eased * move.y).toFixed(2)}px`);
+                car.style.setProperty("--scroll-rotate", `${(eased * move.r).toFixed(2)}deg`);
+            });
+
+            ticking = false;
+        }
+
+        function requestUpdate() {
+            if (ticking) {
+                return;
+            }
+
+            ticking = true;
+            window.requestAnimationFrame(updateCars);
+        }
+
+        function requestResizeUpdate() {
+            syncPathMetrics();
+            requestUpdate();
+        }
+
+        syncPathMetrics();
+        updateCars();
+        if (!reduceMotion) {
+            window.addEventListener("scroll", requestUpdate, { passive: true });
+        }
+        window.addEventListener("resize", requestResizeUpdate);
+    }
+
+    function initPageAnimations() {
+        const elements = Array.from(document.querySelectorAll([
+            ".insurance-section",
+            ".insurance-form-section",
+            ".whats-covered-section",
+            ".other-types-section",
+            ".optional-addons-section",
+            ".tips-heading-section",
+            ".guide-wrapper",
+            ".faq-section",
+            ".types-card",
+            ".tip-card",
+            ".faq-item",
+            ".faq-item2",
+        ].join(",")));
+
+        if (!elements.length) {
+            return;
+        }
+
+        document.documentElement.classList.add("animate-ready");
+        const revealedElements = new WeakSet();
+        let previousScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+        let scrollDirection = "down";
+
+        function updateScrollDirection() {
+            const currentScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+
+            if (currentScrollY > previousScrollY) {
+                scrollDirection = "down";
+            } else if (currentScrollY < previousScrollY) {
+                scrollDirection = "up";
+            }
+
+            previousScrollY = currentScrollY;
+        }
+
+        function revealElement(element, animate = true) {
+            if (revealedElements.has(element) || element.dataset.scrollRevealComplete === "true") {
+                return;
+            }
+
+            revealedElements.add(element);
+            element.dataset.scrollRevealComplete = "true";
+
+            if (!animate) {
+                element.classList.add("reveal-without-transition");
+            }
+
+            element.classList.add("is-visible");
+
+            if (!animate) {
+                window.requestAnimationFrame(() => {
+                    element.classList.remove("reveal-without-transition");
+                });
+            }
+        }
+
+        elements.forEach((element, index) => {
+            element.classList.add("page-animate");
+            element.style.setProperty("--animation-delay", `${Math.min(index * 28, 240)}ms`);
+        });
+
+        if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+            elements.forEach((element) => revealElement(element, false));
+            return;
+        }
+
+        window.addEventListener("scroll", updateScrollDirection, { passive: true });
+
+        const observer = new IntersectionObserver((entries) => {
+            updateScrollDirection();
+
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const enteredWhileScrollingDown = scrollDirection === "down" || entry.boundingClientRect.top >= 0;
+                revealElement(entry.target, enteredWhileScrollingDown);
+                observer.unobserve(entry.target);
+            });
+        }, {
+            rootMargin: "0px 0px -12% 0px",
+            threshold: 0.12,
+        });
+
+        elements.forEach((element) => observer.observe(element));
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
         initFaqAccordions();
         initCoverAccordions();
         initTipsCarousel();
         initOtherTypesDots();
+        initRoadScrollAnimation();
+        initPageAnimations();
     });
 
     window.addEventListener("resize", initOtherTypesDots);

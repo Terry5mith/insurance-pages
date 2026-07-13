@@ -1,11 +1,11 @@
 /* Source: compare-product-page-9d0634e2af.css */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");html {
-    font-size: 15px
+    font-size: 0.9375rem
 }
 
 @media (max-width: 767px) {
     html {
-        font-size:14px
+        font-size: 0.875rem
     }
 }
 
@@ -1187,7 +1187,7 @@ h1,h2 {
     background-color: #ffedf3;
     color: #ed1c5c;
     background-image: url(/images/gecko-images/icons/tcb-alert-error-icon.svg);
-    font-size: 16px
+    font-size: 1rem
 }
 
 @media (min-width: 768px) {
@@ -1696,13 +1696,13 @@ h1,h2 {
 }
 
 .cprod-powered-by-section__inner p {
-    font-size: 12px;
+    font-size: 0.75rem;
     max-width: 1000px
 }
 
 @media (max-width: 767px) {
     .cprod-powered-by-section__inner p {
-        font-size:14px
+        font-size: 0.875rem
     }
 }
 
@@ -1813,7 +1813,7 @@ h1,h2 {
 }
 
 .faq-slice h2,.faq-slice-landing h2 {
-    font-size: 20px;
+    font-size: 1.25rem;
     padding-top: 1em;
     padding-bottom: 1.78em;
     text-align: center;
@@ -1825,12 +1825,12 @@ h1,h2 {
 
 .faq-slice h3,.faq-slice-landing h3 {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 22px
 }
 
 .faq-slice .panel p,.faq-slice-landing .panel p {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 22px;
     color: #6d6d6d
@@ -1931,7 +1931,7 @@ h1,h2 {
     }
 
     .faq-slice h2,.faq-slice-landing h2 {
-        font-size: 28px
+        font-size: 1.75rem
     }
 
     .faq-item-control {
@@ -3911,5 +3911,2371 @@ section{
     .car-insurance-faqs-page .faq-answer p,
     .car-insurance-faqs-page .faq-answer li {
         font-size: 1.0625rem;
+    }
+}
+
+/* Motion and interaction polish */
+.faq-answer {
+    will-change: max-height, opacity;
+    transition:
+        max-height 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.24s ease;
+}
+
+.faq-item.is-closing > .faq-answer,
+.faq-item2.is-closing > .faq-answer {
+    display: block;
+}
+
+.faq-question {
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.faq-question:hover {
+    transform: translateY(-1px);
+}
+
+.faq-icon {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.24s ease;
+}
+
+.faq-item.active .faq-icon,
+.faq-item2.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+.road-car {
+    --base-x: 0px;
+    --base-rotate: 0deg;
+    --scroll-x: 0px;
+    --scroll-y: 0px;
+    --scroll-rotate: 0deg;
+    transform:
+        translate3d(var(--scroll-x), var(--scroll-y), 0)
+        translateX(var(--base-x))
+        rotate(calc(var(--base-rotate) + var(--scroll-rotate)));
+    will-change: transform;
+}
+
+.car2 {
+    --base-x: -50%;
+}
+
+.car3 {
+    --base-rotate: 20deg;
+}
+
+.car4 {
+    --base-rotate: 115deg;
+}
+
+.car5 {
+    --base-rotate: 180deg;
+}
+
+.car6,
+.car7 {
+    --base-rotate: 90deg;
+}
+
+.animate-ready .page-animate {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition:
+        opacity 0.58s ease,
+        transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--animation-delay, 0ms);
+}
+
+.animate-ready .page-animate.reveal-without-transition {
+    transition: none;
+    transition-delay: 0ms;
+}
+
+.animate-ready .page-animate.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-ready .types-card.page-animate,
+.animate-ready .tip-card.page-animate,
+.animate-ready .faq-item.page-animate,
+.animate-ready .faq-item2.page-animate {
+    transform: translateY(0.875rem);
+}
+
+.animate-ready .types-card.page-animate.is-visible,
+.animate-ready .tip-card.page-animate.is-visible,
+.animate-ready .faq-item.page-animate.is-visible,
+.animate-ready .faq-item2.page-animate.is-visible {
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+    }
+
+    .animate-ready .page-animate {
+        opacity: 1;
+        transform: none;
+    }
+
+    .road-car {
+        --scroll-x: 0px !important;
+        --scroll-y: 0px !important;
+        --scroll-rotate: 0deg !important;
+    }
+}
+
+/* July repair pass: Figma-aligned car insurance sections */
+.car-insurance-page {
+    --tcb-green-dark: #458f67;
+    --tcb-green-mid: #46a678;
+    --tcb-green-teal: #4ca199;
+    --tcb-green-panel: #3fa57a;
+    --tcb-text: #2f2f2f;
+    --tcb-muted: #555;
+    --tcb-table-border: #d9e4dd;
+    --tcb-table-row: #f4f7f5;
+    --tcb-table-row-alt: #ffffff;
+}
+
+.insurance-section {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.insurance-section h2 {
+    margin-bottom: 38px;
+}
+
+.insurance-content {
+    align-items: flex-start;
+}
+
+.insurance-image {
+    flex: 0 0 344px;
+    max-width: 344px;
+}
+
+.insurance-image img {
+    width: 344px;
+    height: 344px;
+    margin-top: 0;
+    border-radius: 75px;
+    object-fit: cover;
+}
+
+.insurance-text p {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.insurance-form-section {
+    max-width: 1040px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+
+.insurance-form-copy {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.insurance-form-copy h2 {
+    margin: 0 0 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--tcb-text);
+}
+
+.insurance-form-copy p {
+    max-width: 760px;
+    margin: 0 auto;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--tcb-text);
+}
+
+.insurance-cover-table-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+    border: 2px solid var(--tcb-table-border);
+    border-radius: 50px;
+}
+
+.insurance-cover-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.insurance-cover-table caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.insurance-cover-table thead th {
+    height: 76px;
+    padding: 16px 14px;
+    border: 0;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.insurance-cover-table__feature-heading {
+    background: transparent;
+    color: transparent !important;
+}
+
+.insurance-cover-table__plan--comprehensive {
+    background: var(--tcb-green-dark);
+}
+
+.insurance-cover-table__plan--fire-theft {
+    background: var(--tcb-green-mid);
+}
+
+.insurance-cover-table__plan--third-party {
+    background: var(--tcb-green-teal);
+}
+
+.insurance-cover-table tbody tr {
+    height: 74px;
+    background: var(--tcb-table-row-alt);
+}
+
+.insurance-cover-table tbody tr:nth-child(odd) {
+    background: var(--tcb-table-row);
+}
+
+.insurance-cover-table tbody th,
+.insurance-cover-table tbody td {
+    height: 74px;
+    padding: 12px 18px;
+    border: 0;
+    vertical-align: middle;
+}
+
+.insurance-cover-table tbody th {
+    width: 43%;
+    padding-left: 34px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--tcb-text);
+    text-align: left;
+}
+
+.insurance-cover-table tbody td {
+    text-align: center;
+}
+
+.insurance-cover-table tbody td:last-child,
+.insurance-cover-table thead th:last-child {
+    padding-right: 34px;
+}
+
+.comparison-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    box-shadow:
+        0 0 0 7px rgba(255, 255, 255, 0.72),
+        0 6px 14px rgba(47, 47, 47, 0.08);
+}
+
+.comparison-icon--included {
+    background: #4d9b69;
+}
+
+.comparison-icon--not-included {
+    background: #7d9a98;
+}
+
+.comparison-icon img {
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.insurance-form-comparison-table {
+    display: none !important;
+}
+
+.whats-covered-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.whats-covered-section > p {
+    margin-bottom: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.other-types-heading {
+    margin-top: 60px;
+    margin-bottom: 0;
+}
+
+.other-types-section {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 21px 15px;
+    width: 100%;
+    max-width: 989px;
+    margin: 30px auto 60px;
+    padding: 0;
+    text-align: left;
+}
+
+.types-card-container {
+    display: flex;
+    min-width: 0;
+}
+
+.types-card {
+    width: 100%;
+    min-height: 360px;
+    padding: 28px 20px 26px;
+    border: 2px solid var(--tcb-green-panel);
+    border-radius: 25px;
+}
+
+.types-card img {
+    width: 116px;
+    height: 116px;
+    margin: 0 auto 12px;
+    object-fit: contain;
+}
+
+.types-card h3 {
+    margin-bottom: 14px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.types-card p {
+    font-family: 'Open Sans', Arial, sans-serif;
+    text-align: left;
+}
+
+.faq-section {
+    align-items: flex-start;
+}
+
+.faq-right {
+    flex: 0 0 240px;
+    align-self: flex-start;
+}
+
+.faq-right img {
+    width: 240px;
+    max-width: 100%;
+}
+
+.faq-question {
+    user-select: none;
+    -webkit-user-select: none;
+    width: 100%;
+    color: var(--tcb-text);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    transform: none !important;
+}
+
+.faq-question:hover {
+    opacity: 1;
+    color: inherit;
+    transform: none !important;
+}
+
+.faq-question-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.faq-icon {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    margin-top: 0;
+    line-height: 1;
+    transform: none !important;
+}
+
+.faq-item.active .faq-icon,
+.faq-item2.active .faq-icon {
+    transform: none !important;
+}
+
+.faq-answer {
+    box-sizing: border-box;
+    overflow: hidden;
+    will-change: max-height, opacity;
+    transition:
+        max-height 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.24s ease;
+}
+
+.faq-answer:not([hidden]),
+.faq-item.is-closing > .faq-answer,
+.faq-item2.is-closing > .faq-answer {
+    display: block !important;
+}
+
+.faq-answer p,
+.faq-answer li {
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.car-insurance-faqs-page .faq-section,
+.topcashback-faq-section {
+    align-items: flex-start;
+}
+
+.car-insurance-faqs-page .faq-item,
+.topcashback-faq-section .faq-item {
+    padding: 0;
+    border-radius: 28px;
+}
+
+.car-insurance-faqs-page .faq-item + .faq-item,
+.topcashback-faq-section .faq-item + .faq-item {
+    margin-top: 18px;
+}
+
+.car-insurance-faqs-page .faq-question,
+.topcashback-faq-section .faq-question {
+    min-height: 58px;
+    padding: 15px 30px 15px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.car-insurance-faqs-page .faq-item.active,
+.topcashback-faq-section .faq-item.active {
+    padding-right: 0;
+    background: #fff !important;
+}
+
+.car-insurance-faqs-page .faq-answer,
+.topcashback-faq-section .faq-answer {
+    padding: 0 30px 22px 74px !important;
+}
+
+.car-insurance-faqs-page .faq-answer p,
+.car-insurance-faqs-page .faq-answer li,
+.topcashback-faq-section .faq-answer p,
+.topcashback-faq-section .faq-answer li {
+    color: var(--tcb-muted) !important;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    text-align: left !important;
+}
+
+.car-insurance-faqs-page .faq-answer ul {
+    margin: 10px 0 0 20px;
+    padding-left: 18px;
+    color: var(--tcb-muted) !important;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.optional-addons-section {
+    max-width: 1200px;
+    border-radius: 75px;
+}
+
+.optional-addons-section .faq-left {
+    flex: 0 1 928px;
+    max-width: 928px;
+    margin: 0 auto;
+}
+
+.optional-addons-section .faq-description {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    line-height: 1.65;
+}
+
+.optional-addons-section .faq-container2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 18px;
+}
+
+.optional-addons-section .faq-item2 {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 25px;
+}
+
+.optional-addons-section .faq-question {
+    min-height: 73px;
+    padding: 0 24px;
+    gap: 15px;
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 900;
+}
+
+.optional-addons-section .faq-icon {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
+    margin: 0;
+    border-width: 2px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.optional-addons-section .faq-answer {
+    padding: 0 24px 24px 59px !important;
+}
+
+.optional-addons-section .faq-answer p {
+    color: var(--tcb-muted) !important;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    text-align: left !important;
+}
+
+@media (max-width: 992px) {
+    .insurance-content {
+        gap: 32px;
+    }
+
+    .other-types-section {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .optional-addons-section .faq-container2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 885px) {
+    .insurance-cover-table-wrap {
+        display: block;
+        overflow-x: auto;
+        border-radius: 32px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .insurance-cover-table {
+        min-width: 860px;
+    }
+}
+
+@media (max-width: 768px) {
+    .insurance-image {
+        flex-basis: auto;
+        max-width: 344px;
+        width: 100%;
+    }
+
+    .insurance-image img {
+        width: min(100%, 344px);
+        height: auto;
+        aspect-ratio: 1 / 1;
+        border-radius: 75px;
+    }
+
+    .optional-addons-section {
+        border-radius: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .other-types-section {
+        display: flex;
+        max-width: none;
+        gap: 0.125rem;
+        margin: 30px auto 60px;
+        overflow-x: auto;
+    }
+
+    .types-card-container {
+        flex: 0 0 calc(100% - 3.75rem);
+        min-width: calc(100% - 3.75rem);
+    }
+
+    .types-card {
+        width: 100%;
+        min-height: 360px;
+    }
+}
+
+/* July repair pass: Tips road and car insurance FAQ */
+.tips-heading-section {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+.tips-heading-section p {
+    max-width: 50rem;
+    padding-top: 1.25rem;
+    padding-bottom: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.tips-heading-section + .guide-wrapper,
+.guide-wrapper {
+    max-width: 75rem;
+    min-height: 112rem;
+    margin: 1.875rem auto 0;
+    padding: 0 0 2.5rem;
+}
+
+.road-container {
+    overflow: visible;
+    transform: translateY(5.5rem);
+}
+
+.road-svg {
+    display: block;
+    width: min(68.75rem, calc(100% + 4rem));
+    height: 93.75rem;
+    margin: 0 auto;
+    overflow: visible;
+    transform: translateX(-3.5rem);
+}
+
+.road-path {
+    stroke-width: 4.75rem;
+}
+
+.road-center {
+    stroke-width: 0.1875rem;
+    stroke-dasharray: 0.75rem 0.875rem;
+}
+
+.tips-grid {
+    grid-template-columns: repeat(3, 23.75rem);
+    justify-content: center;
+    align-items: start;
+    column-gap: 1.8125rem;
+    row-gap: 0;
+    margin-top: 0;
+}
+
+.tip-card {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    width: 23.75rem;
+    min-height: 25rem;
+    padding: 2.3125rem;
+    border-radius: 1.5625rem;
+}
+
+.tip-card h3 {
+    margin: 0 0 1.125rem;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.tip-card p {
+    max-width: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.55;
+    text-align: left;
+}
+
+.tip-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5625rem;
+    height: 1.5625rem;
+    margin: auto auto 0;
+    color: #5f5f5f;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1;
+    background: #fff;
+    border: 0.0625rem solid #a9a9a9;
+    border-radius: 50%;
+}
+
+.tip-4,
+.tip-5 {
+    margin-top: 9.25rem;
+}
+
+.tip-6,
+.tip-7 {
+    margin-top: 10.75rem;
+}
+
+.road-car {
+    width: 6.25rem;
+}
+
+.car1 {
+    top: 18%;
+    left: 0;
+}
+
+.car2 {
+    top: 18.5%;
+    left: 43%;
+}
+
+.car3 {
+    top: 18%;
+    right: 4%;
+}
+
+.car4 {
+    top: 41%;
+    right: 7%;
+}
+
+.car5 {
+    top: 48%;
+    left: 38%;
+}
+
+.car6 {
+    top: 66%;
+    left: 12%;
+}
+
+.car7 {
+    top: 80%;
+    left: 6%;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.card-body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1.125rem;
+}
+
+.pagination .dot {
+    width: 1.5625rem;
+    height: 1.5625rem;
+    font-size: 0.8125rem;
+}
+
+.topcashback-faq-section {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 4.25rem 1.25rem 5rem;
+    gap: 4rem;
+}
+
+.topcashback-faq-section .faq-left {
+    flex: 1 1 43rem;
+    max-width: 43rem;
+}
+
+.topcashback-faq-section .faq-title {
+    margin-bottom: 1.875rem;
+}
+
+.topcashback-faq-section .faq-right {
+    flex: 0 0 26rem;
+}
+
+.topcashback-faq-section .faq-right img {
+    display: block;
+    width: min(100%, 26rem);
+    max-width: 26rem;
+    height: auto;
+}
+
+@media (max-width: 75rem) {
+    .tips-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        padding-inline: 1.25rem;
+    }
+
+    .tip-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 62rem) {
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper {
+        min-height: auto;
+        padding-bottom: 0;
+    }
+
+    .tips-grid {
+        grid-template-columns: minmax(0, 23.75rem);
+        row-gap: 1.8125rem;
+    }
+
+    .tip-4,
+    .tip-5,
+    .tip-6,
+    .tip-7 {
+        margin-top: 0;
+    }
+
+    .topcashback-faq-section {
+        max-width: 75rem;
+        padding: 2.5rem 1.875rem;
+        gap: 0;
+    }
+
+    .topcashback-faq-section .faq-left {
+        max-width: none;
+    }
+}
+
+@media (max-width: 36rem) {
+    .tips-heading-section {
+        padding: 0 1.25rem;
+    }
+
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper {
+        display: none;
+    }
+
+    .carousel {
+        display: block;
+    }
+
+    .card {
+        padding: 2.3125rem;
+        border-radius: 1.5625rem;
+    }
+
+    .topcashback-faq-section {
+        padding: 2.1875rem 1.25rem;
+    }
+}
+
+/* July repair pass: responsive Figma alignment */
+.insurance-form-mobile-table {
+    display: none;
+}
+
+.other-types-section {
+    display: block;
+    max-width: 75rem;
+    margin: 1.875rem auto 3.75rem;
+    padding: 0 1.25rem;
+    text-align: center;
+}
+
+.other-types-slider {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.3125rem 0.9375rem;
+    max-width: 61.8125rem;
+    margin: 1.875rem auto 0;
+}
+
+.other-types-section .types-card-container {
+    display: flex;
+    min-width: 0;
+}
+
+@media (min-width: 48.0625rem) and (max-width: 62rem) {
+    .optional-addons-section .faq-container2 {
+        grid-template-columns: repeat(2, minmax(0, 27rem));
+        justify-content: center;
+    }
+}
+
+@media (max-width: 62rem) {
+    .tips-heading-section {
+        padding: 3.25rem 1.25rem 0;
+    }
+
+    .tips-heading-section h2 {
+        font-size: 1.75rem;
+        line-height: 1.05;
+    }
+
+    .tips-heading-section p {
+        max-width: 24rem;
+        padding-top: 0.875rem;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        text-align: left;
+    }
+
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper {
+        display: none;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel {
+        display: block;
+        width: calc(100% - 2.5rem);
+        max-width: 24rem;
+        margin: 1.875rem auto 3.75rem;
+        overflow: visible;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel::before,
+    .tips-heading-section + .guide-wrapper + .carousel::after {
+        display: none;
+        content: none;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .carousel-track {
+        display: block;
+        width: auto;
+        min-height: 25rem;
+        animation: none;
+        transform: none;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .slide.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card {
+        width: 100%;
+        max-width: none;
+        min-height: 22.5rem;
+        margin: 0;
+        padding: 2rem;
+        border-radius: 1.5625rem;
+        background: #e8e8e8;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-header {
+        margin-bottom: 1rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-header img {
+        width: 4.75rem !important;
+        margin-left: -1.25rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-title {
+        font-size: 1rem;
+        line-height: 1.25;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-body {
+        font-size: 0.9375rem;
+        line-height: 1.5;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .pagination {
+        top: auto;
+        bottom: -2.5rem;
+    }
+
+    .topcashback-faq-section {
+        padding-top: 3.75rem;
+    }
+}
+
+@media (max-width: 55.3125rem) {
+    .insurance-cover-table-wrap {
+        display: none;
+    }
+
+    .insurance-form-mobile-table {
+        display: block;
+        margin: 0 1.25rem;
+        padding: 1.5rem 0;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+    }
+
+    .insurance-form-accordion-item + .insurance-form-accordion-item {
+        margin-top: 0.5rem;
+    }
+
+    .insurance-form-accordion-header {
+        width: 100%;
+        min-height: 3.625rem;
+        margin: 0;
+        padding: 0 1rem;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 800;
+        line-height: 1.2;
+        border-radius: 1.8125rem;
+    }
+
+    .insurance-form-accordion-icon {
+        width: 2rem;
+        height: 2rem;
+        color: #fff;
+    }
+
+    .insurance-form-accordion-content {
+        margin-top: 0.5rem;
+    }
+
+    .insurance-form-feature-row {
+        gap: 0.875rem;
+        padding: 0.875rem 1rem;
+        font-family: 'Open Sans', Arial, sans-serif;
+        background: #f1f1f1;
+    }
+
+    .insurance-form-feature-row span:first-child,
+    .insurance-form-feature-label {
+        width: auto;
+        flex: 1 1 auto;
+        font-size: 0.8125rem;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 48rem) {
+    .insurance-section {
+        margin: 2.375rem auto 2.75rem;
+        padding: 0 1.25rem;
+    }
+
+    .insurance-section h2 {
+        margin-bottom: 1.125rem;
+        font-size: 1.625rem;
+        line-height: 1.12;
+    }
+
+    .insurance-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .insurance-image {
+        max-width: 15.75rem;
+    }
+
+    .insurance-image img {
+        width: min(100%, 15.75rem);
+        margin-top: 0;
+        border-radius: 5.625rem;
+    }
+
+    .insurance-text p {
+        font-size: 0.9375rem;
+        line-height: 1.65;
+    }
+
+    .whats-covered-section {
+        padding-bottom: 2.75rem;
+    }
+
+    .whats-covered-section .other-types-heading,
+    .whats-covered-section > p {
+        padding-inline: 1.25rem;
+    }
+
+    .whats-covered-section > p {
+        text-align: left;
+    }
+
+    .other-types-section {
+        margin: 1.25rem auto 0;
+        padding: 0 0 2.75rem;
+        overflow: hidden;
+    }
+
+    .other-types-slider {
+        display: flex;
+        max-width: none;
+        margin: 1.25rem 0 0;
+        padding: 0 1.25rem 0 0.75rem;
+        gap: 0.75rem;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .other-types-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .other-types-slider .types-card-container {
+        flex: 0 0 64%;
+        min-width: 64%;
+        scroll-snap-align: start;
+    }
+
+    .other-types-slider .types-card {
+        min-height: 19.5rem;
+        padding: 1.25rem 1rem;
+        border-radius: 1.25rem;
+    }
+
+    .other-types-slider .types-card img {
+        width: 7.5rem;
+        height: 7.5rem;
+        margin-bottom: 0.625rem;
+    }
+
+    .optional-addons-section {
+        padding: 3rem 1.5rem 3.75rem;
+        border-radius: 0;
+    }
+
+    .optional-addons-section .faq-left {
+        max-width: 36rem;
+    }
+
+    .optional-addons-section .faq-title {
+        font-size: 1.625rem;
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .optional-addons-section .faq-description {
+        max-width: 32rem;
+        padding-bottom: 1.25rem;
+        font-family: 'Open Sans', Arial, sans-serif;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        text-align: left;
+    }
+
+    .optional-addons-section .faq-container2 {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 0.625rem;
+    }
+
+    .optional-addons-section .faq-item2 {
+        max-width: 34rem;
+        border-radius: 1.125rem;
+    }
+
+    .optional-addons-section .faq-question {
+        min-height: 3.625rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: 1.125rem;
+    }
+
+    .optional-addons-section .faq-answer {
+        padding: 0 1rem 1rem 3rem !important;
+    }
+
+    .topcashback-faq-section {
+        padding: 3.75rem 1.25rem 3.75rem;
+    }
+
+    .topcashback-faq-section .faq-title {
+        margin-bottom: 1.5rem;
+        font-size: 1.625rem;
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .topcashback-faq-section .faq-item + .faq-item {
+        margin-top: 0.5rem;
+    }
+
+    .topcashback-faq-section .faq-question {
+        min-height: 3.625rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .topcashback-faq-section .faq-answer {
+        padding: 0 1rem 1rem 3rem !important;
+    }
+
+    .car-insurance-faqs-page .faq-section {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .car-insurance-faqs-page .faq-title {
+        font-size: 1.625rem;
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .car-insurance-faqs-page .faq-item + .faq-item {
+        margin-top: 0.5rem;
+    }
+
+    .car-insurance-faqs-page .faq-question {
+        min-height: 3.625rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .car-insurance-faqs-page .faq-answer {
+        padding: 0 1rem 1rem 3rem !important;
+    }
+}
+
+@media (max-width: 30rem) {
+    .other-types-slider .types-card-container {
+        flex-basis: 66%;
+        min-width: 66%;
+    }
+
+    .tips-heading-section h2,
+    .topcashback-faq-section .faq-title,
+    .optional-addons-section .faq-title {
+        font-size: 1.5rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel {
+        width: calc(100% - 2rem);
+    }
+}
+
+/* July repair pass: comparison table panel styling */
+@media (min-width: 55.375rem) {
+    .insurance-form-section {
+        max-width: 76.25rem;
+    }
+
+    .insurance-cover-table-wrap {
+        max-width: 71rem;
+        padding: 1rem 1.25rem;
+        overflow: hidden;
+        background: #fff;
+        border: 0.1875rem solid #e8e8e8;
+        border-radius: 2.25rem;
+    }
+
+    .insurance-cover-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed;
+    }
+
+    .insurance-cover-table colgroup col:first-child {
+        width: 40%;
+    }
+
+    .insurance-cover-table colgroup col:nth-child(2),
+    .insurance-cover-table colgroup col:nth-child(3),
+    .insurance-cover-table colgroup col:nth-child(4) {
+        width: 20%;
+    }
+
+    .insurance-cover-table__feature-heading,
+    .insurance-cover-table tbody th {
+        width: 40%;
+    }
+
+    .insurance-cover-table__plan,
+    .insurance-cover-table tbody td {
+        width: 20%;
+    }
+
+    .insurance-cover-table thead th {
+        height: 4.25rem;
+        padding: 0.5625rem 0.75rem 1rem;
+        background: transparent !important;
+        border: 0;
+        color: #fff;
+        font-size: 0.875rem;
+        font-weight: 800;
+        line-height: 1.1;
+        position: relative;
+    }
+
+    .insurance-cover-table thead th::before {
+        content: "";
+        position: absolute;
+        top: 0.4375rem;
+        right: 0.75rem;
+        left: 0.75rem;
+        height: 2.625rem;
+        border-radius: 999rem;
+        z-index: 0;
+    }
+
+    .insurance-cover-table thead th:not(:first-child) {
+        z-index: 1;
+    }
+
+    .insurance-cover-table thead th:not(:first-child)::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: -62rem;
+        left: 0;
+        right: 0;
+        border-width: 0.0625rem;
+        border-style: solid;
+        border-color: rgba(69, 143, 103, 0.55);
+        background: rgba(69, 143, 103, 0.13);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .insurance-cover-table thead th:nth-child(2)::before {
+        background: #458f67;
+    }
+
+    .insurance-cover-table thead th:nth-child(3)::before {
+        background: #46a678;
+    }
+
+    .insurance-cover-table thead th:nth-child(4)::before {
+        background: #4ca199;
+    }
+
+    .insurance-cover-table thead th:nth-child(2)::after {
+        border-color: rgba(69, 143, 103, 0.65);
+        background: rgba(69, 143, 103, 0.14);
+        border-radius: 1.25rem 1.25rem 1.25rem 1.25rem;
+    }
+
+    .insurance-cover-table thead th:nth-child(3)::after {
+        border-color: rgba(70, 166, 120, 0.65);
+        background: rgba(70, 166, 120, 0.15);
+        border-radius: 1.25rem;
+    }
+
+    .insurance-cover-table thead th:nth-child(4)::after {
+        border-color: rgba(76, 161, 153, 0.72);
+        background: rgba(76, 161, 153, 0.16);
+        border-radius: 1.25rem;
+    }
+
+    .insurance-cover-table thead th:first-child {
+        color: transparent !important;
+    }
+
+    .insurance-cover-table thead th:not(:first-child) {
+        text-shadow: 0 0.0625rem 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .insurance-cover-table tbody tr {
+        height: 3.875rem;
+        background: transparent;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(odd) th {
+        background: #efefef;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(even) th {
+        background: #fafafa;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(odd) td {
+        background-color: rgba(232, 232, 232, 0.45);
+    }
+
+    .insurance-cover-table tbody tr:nth-child(even) td {
+        background-color: rgba(255, 255, 255, 0.36);
+    }
+
+    .insurance-cover-table tbody th,
+    .insurance-cover-table tbody td {
+        height: 3.875rem;
+        padding: 0.625rem 1rem;
+        border: 0;
+    }
+
+    .insurance-cover-table tbody th {
+        padding-left: 1.75rem;
+        color: #333;
+        font-size: 0.875rem;
+        line-height: 1.28;
+    }
+
+    .insurance-cover-table tbody td {
+        position: relative;
+        padding-right: 0;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .comparison-icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 1.375rem 0.4375rem rgba(255, 255, 255, 0.86);
+    }
+
+    .comparison-icon img[width="18"] {
+        width: 1rem;
+    }
+
+    .comparison-icon img[width="16"] {
+        width: 0.875rem;
+    }
+
+    .insurance-cover-table thead th:not(:first-child)::after {
+        display: none;
+    }
+
+    .insurance-cover-table thead th:nth-child(2),
+    .insurance-cover-table tbody td:nth-child(2) {
+        background-color: rgba(69, 143, 103, 0.14);
+        border-right: 0.0625rem solid rgba(69, 143, 103, 0.58);
+        border-left: 0.0625rem solid rgba(69, 143, 103, 0.58);
+    }
+
+    .insurance-cover-table thead th:nth-child(3),
+    .insurance-cover-table tbody td:nth-child(3) {
+        background-color: rgba(70, 166, 120, 0.15);
+        border-right: 0.0625rem solid rgba(70, 166, 120, 0.58);
+        border-left: 0.0625rem solid rgba(70, 166, 120, 0.58);
+    }
+
+    .insurance-cover-table thead th:nth-child(4),
+    .insurance-cover-table tbody td:nth-child(4) {
+        background-color: rgba(76, 161, 153, 0.16);
+        border-right: 0.0625rem solid rgba(76, 161, 153, 0.64);
+        border-left: 0.0625rem solid rgba(76, 161, 153, 0.64);
+    }
+
+    .insurance-cover-table thead th:nth-child(n+2) {
+        border-top-width: 0.0625rem;
+        border-top-style: solid;
+        border-radius: 1.25rem 1.25rem 0 0;
+    }
+
+    .insurance-cover-table thead th:nth-child(2) {
+        border-top-color: rgba(69, 143, 103, 0.58);
+    }
+
+    .insurance-cover-table thead th:nth-child(3) {
+        border-top-color: rgba(70, 166, 120, 0.58);
+    }
+
+    .insurance-cover-table thead th:nth-child(4) {
+        border-top-color: rgba(76, 161, 153, 0.64);
+    }
+
+    .insurance-cover-table tbody tr:last-child td:nth-child(n+2) {
+        border-bottom-width: 0.0625rem;
+        border-bottom-style: solid;
+        border-radius: 0 0 1.25rem 1.25rem;
+    }
+
+    .insurance-cover-table tbody tr:last-child td:nth-child(2) {
+        border-bottom-color: rgba(69, 143, 103, 0.58);
+    }
+
+    .insurance-cover-table tbody tr:last-child td:nth-child(3) {
+        border-bottom-color: rgba(70, 166, 120, 0.58);
+    }
+
+    .insurance-cover-table tbody tr:last-child td:nth-child(4) {
+        border-bottom-color: rgba(76, 161, 153, 0.64);
+    }
+}
+
+/* Final comparison table replica tuning */
+@media (min-width: 55.375rem) {
+    .insurance-form-section {
+        max-width: 56rem;
+        margin: 4.375rem auto;
+        padding: 0 1.25rem;
+    }
+
+    .insurance-cover-table-wrap {
+        max-width: 53.3333rem;
+        padding: 0;
+        background: #fff;
+        border: 0.1875rem solid #e8e8e8;
+        border-radius: 2.625rem;
+    }
+
+    .insurance-cover-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed;
+    }
+
+    .insurance-cover-table__feature-heading,
+    .insurance-cover-table tbody th {
+        width: 40%;
+    }
+
+    .insurance-cover-table__plan,
+    .insurance-cover-table tbody td {
+        width: 20%;
+    }
+
+    .insurance-cover-table thead th {
+        position: relative;
+        height: 6rem;
+        padding: 1.55rem 0.875rem 0;
+        color: #fff;
+        font-size: 0.875rem;
+        font-weight: 800;
+        line-height: 1.08;
+        text-align: center;
+        vertical-align: top;
+        background: transparent !important;
+        border: 0;
+    }
+
+    .insurance-cover-table thead th::before {
+        top: 1.25rem;
+        right: 0.75rem;
+        left: 0.75rem;
+        height: 2.5rem;
+        border-radius: 999rem;
+    }
+
+    .insurance-cover-table thead th:first-child {
+        color: transparent !important;
+    }
+
+    .insurance-cover-table thead th:nth-child(2),
+    .insurance-cover-table tbody td:nth-child(2) {
+        background-color: #e3eee9;
+        border-left: 0.0625rem solid #75bd97;
+        border-right: 0.3125rem solid #fff;
+        box-shadow: inset -0.0625rem 0 #75bd97;
+    }
+
+    .insurance-cover-table thead th:nth-child(3),
+    .insurance-cover-table tbody td:nth-child(3) {
+        background-color: #e2f2eb;
+        border-left: 0.3125rem solid #fff;
+        border-right: 0.3125rem solid #fff;
+        box-shadow: inset 0.0625rem 0 #75cfa5, inset -0.0625rem 0 #75cfa5;
+    }
+
+    .insurance-cover-table thead th:nth-child(4),
+    .insurance-cover-table tbody td:nth-child(4) {
+        background-color: #edf6f5;
+        border-left: 0.3125rem solid #fff;
+        border-right: 0.0625rem solid #66b8b2;
+        box-shadow: inset 0.0625rem 0 #66b8b2;
+    }
+
+    .insurance-cover-table thead th:nth-child(2) {
+        border-top: 0.0625rem solid #75bd97;
+        border-radius: 1.25rem 1.25rem 0 0;
+    }
+
+    .insurance-cover-table thead th:nth-child(3) {
+        border-top: 0.0625rem solid #75cfa5;
+        border-radius: 1.25rem 1.25rem 0 0;
+    }
+
+    .insurance-cover-table thead th:nth-child(4) {
+        border-top: 0.0625rem solid #66b8b2;
+        border-radius: 1.25rem 1.25rem 0 0;
+    }
+
+    .insurance-cover-table thead th:nth-child(2)::before {
+        background: #498f68;
+    }
+
+    .insurance-cover-table thead th:nth-child(3)::before {
+        background: #4aa678;
+    }
+
+    .insurance-cover-table thead th:nth-child(4)::before {
+        background: #51a199;
+    }
+
+    .insurance-cover-table tbody tr,
+    .insurance-cover-table tbody th,
+    .insurance-cover-table tbody td {
+        height: 4rem;
+    }
+
+    .insurance-cover-table tbody th,
+    .insurance-cover-table tbody td {
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
+        border-top: 0;
+        border-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .insurance-cover-table tbody th {
+        padding-right: 1rem;
+        padding-left: 1.75rem;
+        color: #333;
+        font-family: 'Open Sans', Arial, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-align: left;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(odd) th {
+        background: #f2f2f2;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(even) th {
+        background: #fff;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(odd) td:nth-child(2) {
+        background-color: #d8e3de;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(even) td:nth-child(2) {
+        background-color: #e3eee9;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(odd) td:nth-child(3) {
+        background-color: #d7e7e0;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(even) td:nth-child(3) {
+        background-color: #e2f2eb;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(odd) td:nth-child(4) {
+        background-color: #e1eae9;
+    }
+
+    .insurance-cover-table tbody tr:nth-child(even) td:nth-child(4) {
+        background-color: #edf6f5;
+    }
+
+    .insurance-cover-table tbody td {
+        padding-right: 0;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .insurance-cover-table tbody tr:last-child td:nth-child(2) {
+        border-bottom: 0.0625rem solid #75bd97;
+        border-radius: 0 0 1.25rem 1.25rem;
+    }
+
+    .insurance-cover-table tbody tr:last-child td:nth-child(3) {
+        border-bottom: 0.0625rem solid #75cfa5;
+        border-radius: 0 0 1.25rem 1.25rem;
+    }
+
+    .insurance-cover-table tbody tr:last-child td:nth-child(4) {
+        border-bottom: 0.0625rem solid #66b8b2;
+        border-radius: 0 0 1.25rem 1.25rem;
+    }
+
+    .comparison-icon {
+        width: 1.875rem;
+        height: 1.875rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 1.5rem 0.5rem rgba(255, 255, 255, 0.86);
+    }
+
+    .comparison-icon--included {
+        background: #498f68;
+    }
+
+    .comparison-icon--not-included {
+        background: #7e9a98;
+    }
+
+    .comparison-icon img[width="18"] {
+        width: 1rem;
+    }
+
+    .comparison-icon img[width="16"] {
+        width: 0.875rem;
+    }
+}
+
+/* Comparison table acceptance fixes */
+@media (min-width: 55.375rem) {
+    .insurance-cover-table-wrap {
+        box-sizing: border-box;
+        width: 927px;
+        max-width: calc(100vw - 2.5rem);
+        padding: 20px;
+    }
+
+    .insurance-cover-table thead th {
+        color: transparent !important;
+        font-size: 0;
+        padding-right: 0.875rem;
+        padding-left: 0.875rem;
+    }
+
+    .insurance-cover-table thead th:first-child::before {
+        content: none;
+    }
+
+    .insurance-cover-table thead th:nth-child(2)::before,
+    .insurance-cover-table thead th:nth-child(3)::before,
+    .insurance-cover-table thead th:nth-child(4)::before {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 800;
+        line-height: 1.08;
+        text-align: center;
+        white-space: normal;
+        z-index: 2;
+    }
+
+    .insurance-cover-table thead th:nth-child(2)::before {
+        content: "Comprehensive";
+    }
+
+    .insurance-cover-table thead th:nth-child(3)::before {
+        content: "Third-party, Fire and Theft";
+        right: 1.125rem;
+        left: 1.125rem;
+    }
+
+    .insurance-cover-table thead th:nth-child(4)::before {
+        content: "Third-party";
+    }
+
+    .insurance-cover-table tbody td,
+    .insurance-cover-table tbody td:last-child,
+    .insurance-cover-table thead th:last-child {
+        padding-right: 0;
+        padding-left: 0;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .insurance-cover-table tbody td .comparison-icon {
+        margin: 0 auto;
+    }
+
+    .insurance-cover-table tbody td:nth-child(4) {
+        text-align: center;
+    }
+}
+
+/* Comparison table centring fix */
+@media (min-width: 55.375rem) {
+    .insurance-form-section {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: none;
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .insurance-cover-table-wrap {
+        flex: 0 0 auto;
+        width: 927px;
+        max-width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+/* Tips road final reference alignment */
+.car-insurance-page {
+    overflow-x: hidden;
+}
+
+@media (min-width: 62.0625rem) {
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper {
+        width: 1148.38px;
+        max-width: calc(100vw - 2rem);
+        min-height: 1118.9px;
+        margin: 1.875rem 0 0;
+        margin-right: auto;
+        margin-left: 0;
+        padding: 0;
+        overflow: visible;
+        overflow-x: clip;
+    }
+
+    .road-container {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 1163.12px;
+        overflow: visible;
+        transform: none;
+        pointer-events: none;
+    }
+
+    .road-svg {
+        display: block;
+        width: 1148.38px;
+        max-width: 100%;
+        height: 1163.12px;
+        margin: 0;
+        overflow: visible;
+        transform: none;
+    }
+
+    .road-path {
+        stroke: #eeeeee;
+        stroke-width: 4.02rem;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .road-center {
+        stroke: #d7d7d7;
+        stroke-width: 0.25125rem;
+        stroke-dasharray: 0.8375rem 1.005rem;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .tips-grid {
+        position: relative;
+        display: block;
+        width: 1148.38px;
+        max-width: 100%;
+        height: 1072px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .tip-card {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 294.8px;
+        max-width: none;
+        height: 306.86px;
+        min-height: 0;
+        padding: 2.01rem 1.675rem 1.34rem;
+        background: #e9e9e9;
+        border-radius: 1.1725rem;
+        overflow: hidden;
+    }
+
+    .tip-card h3 {
+        margin-bottom: 1.34rem;
+        font-size: 1.005rem;
+        line-height: 1.12;
+    }
+
+    .tip-card p {
+        margin: 0 0 1.005rem;
+        font-size: 0.8375rem;
+        line-height: 1.25;
+    }
+
+    .tip-card .tip-number {
+        box-sizing: border-box;
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        margin: auto auto 0;
+        padding: 0;
+        color: #5f5f5f;
+        font-family: 'Open Sans', Arial, sans-serif;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+        text-align: center;
+        vertical-align: middle;
+        background: #fff;
+        border: 0.0625rem solid #a9a9a9;
+        border-radius: 50%;
+        transform: none;
+    }
+
+    .tip-1 {
+        top: 0;
+        left: 115.24px;
+        margin-top: 0;
+    }
+
+    .tip-2 {
+        top: 0;
+        left: 431.48px;
+        margin-top: 0;
+    }
+
+    .tip-3 {
+        top: 0;
+        left: 749.06px;
+        margin-top: 0;
+    }
+
+    .tip-4 {
+        top: 406.02px;
+        left: 115.24px;
+        height: 273.36px;
+        min-height: 0;
+        margin-top: 0;
+    }
+
+    .tip-5 {
+        top: 406.02px;
+        left: 431.48px;
+        height: 273.36px;
+        min-height: 0;
+        margin-top: 0;
+    }
+
+    .tip-6 {
+        top: 795.14px;
+        left: 431.48px;
+        margin-top: 0;
+    }
+
+    .tip-7 {
+        top: 795.14px;
+        left: 749.06px;
+        margin-top: 0;
+    }
+
+    .road-car {
+        width: 64.32px;
+        pointer-events: none;
+        transform-origin: center;
+    }
+
+    .guide-wrapper.road-path-cars-ready .road-car {
+        top: 0;
+        right: auto;
+        bottom: auto;
+        left: 0;
+        transform: translate3d(-50%, -50%, 0) rotate(var(--road-angle, 0deg));
+    }
+
+    .car1 {
+        top: 364.48px;
+        left: 187.6px;
+    }
+
+    .car2 {
+        top: 364.48px;
+        left: 502.5px;
+    }
+
+    .car3 {
+        top: 364.48px;
+        right: 318.92px;
+    }
+
+    .car4 {
+        top: 659.28px;
+        right: 201px;
+    }
+
+    .car5 {
+        top: 720.92px;
+        left: 562.8px;
+    }
+
+    .car6 {
+        top: 833.48px;
+        left: 318.92px;
+    }
+
+    .car7 {
+        top: 1031.8px;
+        left: 318.92px;
+    }
+
+    .topcashback-faq-section {
+        position: relative;
+        z-index: 1;
+        margin-top: -1.005rem;
+    }
+}
+
+@media (min-width: 62.0625rem) and (max-width: 75rem) {
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper {
+        min-height: 1118.9px;
+    }
+
+    .tips-grid {
+        width: 1148.38px;
+    }
+
+    .tip-card {
+        width: 294.8px;
+        height: 306.86px;
+        min-height: 0;
+        padding: 2.01rem 1.675rem 1.34rem;
+        border-radius: 1.1725rem;
+    }
+
+    .tip-card h3 {
+        margin-bottom: 1.34rem;
+        font-size: 1.005rem;
+        line-height: 1.12;
+    }
+
+    .tip-card p {
+        margin: 0 0 1.005rem;
+        font-size: 0.8375rem;
+        line-height: 1.25;
+    }
+
+    .tip-number {
+        width: 1.5075rem;
+        height: 1.5075rem;
+        font-size: 0.8375rem;
+    }
+
+    .tip-4,
+    .tip-5 {
+        height: 273.36px;
+        margin-top: 0;
+    }
+
+    .tip-6,
+    .tip-7 {
+        margin-top: 0;
+    }
+
+    .road-car {
+        width: 64.32px;
+    }
+}
+
+@media (min-width: 75.0625rem) {
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper {
+        width: 1216.94px;
+        min-height: 1185.7px;
+    }
+
+    .road-container {
+        height: 1232.56px;
+    }
+
+    .road-svg {
+        width: 1216.94px;
+        height: 1232.56px;
+    }
+
+    .road-path {
+        stroke-width: 4.26rem;
+    }
+
+    .road-center {
+        stroke-width: 0.26625rem;
+        stroke-dasharray: 0.8875rem 1.065rem;
+    }
+
+    .tips-grid {
+        width: 1216.94px;
+        height: 1136px;
+    }
+
+    .tip-card {
+        width: 312.4px;
+        height: 325.18px;
+        padding: 2.13rem 1.775rem 1.42rem;
+        border-radius: 1.2425rem;
+    }
+
+    .tip-card h3 {
+        margin-bottom: 1.42rem;
+        font-size: 1.065rem;
+    }
+
+    .tip-card p {
+        margin-bottom: 1.065rem;
+        font-size: 0.8875rem;
+    }
+
+    .tip-number {
+        width: 1.5975rem;
+        height: 1.5975rem;
+        font-size: 0.8875rem;
+    }
+
+    .tip-1 {
+        top: 0;
+        left: 122.12px;
+    }
+
+    .tip-2 {
+        top: 0;
+        left: 457.24px;
+    }
+
+    .tip-3 {
+        top: 0;
+        left: 793.78px;
+    }
+
+    .tip-4 {
+        top: 430.26px;
+        left: 122.12px;
+        height: 289.68px;
+    }
+
+    .tip-5 {
+        top: 430.26px;
+        left: 457.24px;
+        height: 289.68px;
+    }
+
+    .tip-6 {
+        top: 842.82px;
+        left: 457.24px;
+    }
+
+    .tip-7 {
+        top: 842.82px;
+        left: 793.78px;
+    }
+
+    .road-car {
+        width: 68.16px;
+    }
+
+    .car1 {
+        top: 386.24px;
+        left: 198.8px;
+    }
+
+    .car2 {
+        top: 386.24px;
+        left: 532.5px;
+    }
+
+    .car3 {
+        top: 386.24px;
+        right: 337.96px;
+    }
+
+    .car4 {
+        top: 698.64px;
+        right: 213px;
+    }
+
+    .car5 {
+        top: 763.96px;
+        left: 596.4px;
+    }
+
+    .car6 {
+        top: 883.24px;
+        left: 337.96px;
+    }
+
+    .car7 {
+        top: 1093.4px;
+        left: 337.96px;
+    }
+
+    .topcashback-faq-section {
+        margin-top: -1.065rem;
+    }
+}
+
+@media (min-width: 85.375rem) {
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper {
+        width: 1354.06px;
+        min-height: 1319.3px;
+    }
+
+    .road-container {
+        height: 1371.44px;
+    }
+
+    .road-svg {
+        width: 1354.06px;
+        height: 1371.44px;
+    }
+
+    .road-path {
+        stroke-width: 4.74rem;
+    }
+
+    .road-center {
+        stroke-width: 0.29625rem;
+        stroke-dasharray: 0.9875rem 1.185rem;
+    }
+
+    .tips-grid {
+        width: 1354.06px;
+        height: 1264px;
+    }
+
+    .tip-card {
+        width: 347.6px;
+        height: 361.82px;
+        padding: 2.37rem 1.975rem 1.58rem;
+        border-radius: 1.3825rem;
+    }
+
+    .tip-card h3 {
+        margin-bottom: 1.58rem;
+        font-size: 1.185rem;
+    }
+
+    .tip-card p {
+        margin-bottom: 1.185rem;
+        font-size: 0.9875rem;
+    }
+
+    .tip-number {
+        width: 1.7775rem;
+        height: 1.7775rem;
+        font-size: 0.9875rem;
+    }
+
+    .tip-1 {
+        top: 0;
+        left: 135.88px;
+    }
+
+    .tip-2 {
+        top: 0;
+        left: 508.76px;
+    }
+
+    .tip-3 {
+        top: 0;
+        left: 883.22px;
+    }
+
+    .tip-4 {
+        top: 478.74px;
+        left: 135.88px;
+        height: 322.32px;
+    }
+
+    .tip-5 {
+        top: 478.74px;
+        left: 508.76px;
+        height: 322.32px;
+    }
+
+    .tip-6 {
+        top: 938.18px;
+        left: 508.76px;
+    }
+
+    .tip-7 {
+        top: 938.18px;
+        left: 883.22px;
+    }
+
+    .road-car {
+        width: 75.84px;
+    }
+
+    .car1 {
+        top: 429.76px;
+        left: 221.2px;
+    }
+
+    .car2 {
+        top: 429.76px;
+        left: 592.5px;
+    }
+
+    .car3 {
+        top: 429.76px;
+        right: 376.04px;
+    }
+
+    .car4 {
+        top: 777.36px;
+        right: 237px;
+    }
+
+    .car5 {
+        top: 850.04px;
+        left: 663.6px;
+    }
+
+    .car6 {
+        top: 982.76px;
+        left: 376.04px;
+    }
+
+    .car7 {
+        top: 1216.6px;
+        left: 376.04px;
+    }
+
+    .topcashback-faq-section {
+        margin-top: -1.185rem;
     }
 }
