@@ -16,9 +16,61 @@
     }
 
     function cleanFaqAnswerStyles(answer) {
+        answer.style.height = "";
         answer.style.maxHeight = "";
         answer.style.opacity = "";
         answer.style.overflow = "";
+        answer.style.paddingTop = "";
+        answer.style.paddingBottom = "";
+    }
+
+    function cancelFaqAnimation(answer) {
+        if (answer.faqAnimationFrame) {
+            window.cancelAnimationFrame(answer.faqAnimationFrame);
+            answer.faqAnimationFrame = null;
+        }
+
+        if (answer.faqAnimationTimer) {
+            window.clearTimeout(answer.faqAnimationTimer);
+            answer.faqAnimationTimer = null;
+        }
+
+        if (answer.faqAnimationCleanup) {
+            answer.faqAnimationCleanup();
+            answer.faqAnimationCleanup = null;
+        }
+    }
+
+    function afterFaqHeightTransition(answer, callback) {
+        let complete = false;
+
+        function finish() {
+            if (complete) {
+                return;
+            }
+
+            complete = true;
+            answer.removeEventListener("transitionend", onTransitionEnd);
+            window.clearTimeout(answer.faqAnimationTimer);
+            answer.faqAnimationTimer = null;
+            answer.faqAnimationCleanup = null;
+            callback();
+        }
+
+        function onTransitionEnd(event) {
+            if (event.target === answer && event.propertyName === "height") {
+                finish();
+            }
+        }
+
+        answer.addEventListener("transitionend", onTransitionEnd);
+        answer.faqAnimationTimer = window.setTimeout(finish, FAQ_ANIMATION_DURATION + 120);
+        answer.faqAnimationCleanup = () => {
+            complete = true;
+            answer.removeEventListener("transitionend", onTransitionEnd);
+            window.clearTimeout(answer.faqAnimationTimer);
+            answer.faqAnimationTimer = null;
+        };
     }
 
     function scrollFaqItemIntoView(item) {
@@ -41,8 +93,8 @@
         const icon = button ? button.querySelector(".faq-icon") : null;
         const animate = Boolean(options.animate) && !prefersReducedMotion();
 
-        if (answer && answer.faqAnimationTimer) {
-            window.clearTimeout(answer.faqAnimationTimer);
+        if (answer) {
+            cancelFaqAnimation(answer);
         }
 
         if (button) {
@@ -87,44 +139,68 @@
             item.classList.remove("is-closing");
             item.classList.add("active");
             answer.hidden = false;
+            cleanFaqAnswerStyles(answer);
+
+            const targetStyles = window.getComputedStyle(answer);
+            const targetPaddingTop = targetStyles.paddingTop;
+            const targetPaddingBottom = targetStyles.paddingBottom;
+            const targetHeight = answer.scrollHeight;
+
             answer.style.overflow = "hidden";
-            answer.style.maxHeight = "0px";
+            answer.style.height = "0px";
+            answer.style.paddingTop = "0px";
+            answer.style.paddingBottom = "0px";
             answer.style.opacity = "0";
             answer.offsetHeight;
 
-            window.requestAnimationFrame(() => {
-                answer.style.maxHeight = `${answer.scrollHeight}px`;
+            answer.faqAnimationFrame = window.requestAnimationFrame(() => {
+                answer.faqAnimationFrame = null;
+                answer.style.height = `${targetHeight}px`;
+                answer.style.paddingTop = targetPaddingTop;
+                answer.style.paddingBottom = targetPaddingBottom;
                 answer.style.opacity = "1";
             });
 
-            answer.faqAnimationTimer = window.setTimeout(() => {
+            afterFaqHeightTransition(answer, () => {
                 cleanFaqAnswerStyles(answer);
 
                 if (options.scroll) {
                     scrollFaqItemIntoView(item);
                 }
-            }, FAQ_ANIMATION_DURATION);
+            });
 
             return;
         }
 
         item.classList.add("is-closing");
         answer.hidden = false;
+        cleanFaqAnswerStyles(answer);
+
+        const currentStyles = window.getComputedStyle(answer);
+        const currentPaddingTop = currentStyles.paddingTop;
+        const currentPaddingBottom = currentStyles.paddingBottom;
+        const currentHeight = answer.scrollHeight;
+
         answer.style.overflow = "hidden";
-        answer.style.maxHeight = `${answer.scrollHeight}px`;
+        answer.style.height = `${currentHeight}px`;
+        answer.style.paddingTop = currentPaddingTop;
+        answer.style.paddingBottom = currentPaddingBottom;
         answer.style.opacity = "1";
         answer.offsetHeight;
 
-        window.requestAnimationFrame(() => {
-            answer.style.maxHeight = "0px";
+        answer.faqAnimationFrame = window.requestAnimationFrame(() => {
+            answer.faqAnimationFrame = null;
+            answer.style.height = "0px";
+            answer.style.paddingTop = "0px";
+            answer.style.paddingBottom = "0px";
             answer.style.opacity = "0";
         });
 
-        answer.faqAnimationTimer = window.setTimeout(() => {
+        afterFaqHeightTransition(answer, () => {
             item.classList.remove("active", "is-closing");
             answer.hidden = true;
             cleanFaqAnswerStyles(answer);
-        }, FAQ_ANIMATION_DURATION);
+        });
     }
 
     function initFaqAccordions() {
@@ -142,6 +218,8 @@
                 const parent = item.parentElement;
                 const siblings = parent ? directAccordionItems(parent) : [item];
                 const shouldOpen = !item.classList.contains("active");
+
+                siblings.forEach((sibling) => sibling.classList.remove("page-animate"));
 
                 siblings.forEach((sibling) => {
                     const siblingIsOpen = sibling.classList.contains("active") ||
@@ -424,7 +502,8 @@
     }
 
     function initPageAnimations() {
-        const elements = Array.from(document.querySelectorAll([
+        const animatedElements = new Set();
+        const baseElements = Array.from(document.querySelectorAll([
             ".insurance-section",
             ".insurance-form-section",
             ".whats-covered-section",
@@ -438,6 +517,30 @@
             ".faq-item",
             ".faq-item2",
         ].join(",")));
+
+        function queueAnimatedElement(element) {
+            if (element) {
+                animatedElements.add(element);
+            }
+        }
+
+        baseElements.forEach((element) => {
+            if (element.matches(".topcashback-faq-section, .car-insurance-faq-section")) {
+                element.dataset.scrollRevealComplete = "true";
+                element.classList.add("is-visible");
+                return;
+            }
+
+            queueAnimatedElement(element);
+        });
+
+        document.querySelectorAll(".topcashback-faq-section, .car-insurance-faq-section").forEach((section) => {
+            section.dataset.scrollRevealComplete = "true";
+            section.classList.add("is-visible");
+            section.querySelectorAll(".faq-title, .faq-item, .faq-right").forEach(queueAnimatedElement);
+        });
+
+        const elements = Array.from(animatedElements);
 
         if (!elements.length) {
             return;
@@ -474,6 +577,12 @@
 
             element.classList.add("is-visible");
 
+            if (element.matches(".faq-item, .faq-item2")) {
+                window.setTimeout(() => {
+                    element.classList.remove("page-animate");
+                }, FAQ_ANIMATION_DURATION + 160);
+            }
+
             if (!animate) {
                 window.requestAnimationFrame(() => {
                     element.classList.remove("reveal-without-transition");
@@ -493,6 +602,7 @@
 
         window.addEventListener("scroll", updateScrollDirection, { passive: true });
 
+        const observedElements = new Set(elements);
         const observer = new IntersectionObserver((entries) => {
             updateScrollDirection();
 
@@ -504,7 +614,13 @@
                 const enteredWhileScrollingDown = scrollDirection === "down" || entry.boundingClientRect.top >= 0;
                 revealElement(entry.target, enteredWhileScrollingDown);
                 observer.unobserve(entry.target);
+                observedElements.delete(entry.target);
             });
+
+            if (!observedElements.size) {
+                observer.disconnect();
+                window.removeEventListener("scroll", updateScrollDirection);
+            }
         }, {
             rootMargin: "0px 0px -12% 0px",
             threshold: 0.12,
