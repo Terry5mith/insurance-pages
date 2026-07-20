@@ -1,7 +1,7 @@
 (() => {
     const EXPANDED_ICON = "\u2212";
     const COLLAPSED_ICON = "+";
-    const FAQ_ANIMATION_DURATION = 360;
+    const FAQ_ANIMATION_DURATION = 320;
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     function prefersReducedMotion() {
@@ -24,6 +24,26 @@
         answer.style.paddingBottom = "";
     }
 
+    function getPanelHeight(panel) {
+        const currentHeight = panel.getBoundingClientRect().height;
+        return currentHeight > 0 ? currentHeight : panel.scrollHeight;
+    }
+
+    function ensureFaqAnswerInner(answer) {
+        if (answer.querySelector(":scope > .faq-answer-inner")) {
+            return;
+        }
+
+        const inner = document.createElement("div");
+        inner.className = "faq-answer-inner";
+
+        while (answer.firstChild) {
+            inner.appendChild(answer.firstChild);
+        }
+
+        answer.appendChild(inner);
+    }
+
     function cancelFaqAnimation(answer) {
         if (answer.faqAnimationFrame) {
             window.cancelAnimationFrame(answer.faqAnimationFrame);
@@ -41,7 +61,7 @@
         }
     }
 
-    function afterFaqHeightTransition(answer, callback) {
+    function afterFaqPanelTransition(answer, callback) {
         let complete = false;
 
         function finish() {
@@ -58,13 +78,13 @@
         }
 
         function onTransitionEnd(event) {
-            if (event.target === answer && event.propertyName === "height") {
+            if (event.target === answer && (event.propertyName === "height" || event.propertyName === "opacity")) {
                 finish();
             }
         }
 
         answer.addEventListener("transitionend", onTransitionEnd);
-        answer.faqAnimationTimer = window.setTimeout(finish, FAQ_ANIMATION_DURATION + 120);
+        answer.faqAnimationTimer = window.setTimeout(finish, FAQ_ANIMATION_DURATION + 80);
         answer.faqAnimationCleanup = () => {
             complete = true;
             answer.removeEventListener("transitionend", onTransitionEnd);
@@ -137,31 +157,14 @@
 
         if (expanded) {
             item.classList.remove("is-closing");
-            item.classList.add("active");
             answer.hidden = false;
             cleanFaqAnswerStyles(answer);
+            answer.style.height = "0px";
+            answer.style.opacity = "0";
 
-            const targetStyles = window.getComputedStyle(answer);
-            const targetPaddingTop = targetStyles.paddingTop;
-            const targetPaddingBottom = targetStyles.paddingBottom;
             const targetHeight = answer.scrollHeight;
 
-            answer.style.overflow = "hidden";
-            answer.style.height = "0px";
-            answer.style.paddingTop = "0px";
-            answer.style.paddingBottom = "0px";
-            answer.style.opacity = "0";
-            answer.offsetHeight;
-
-            answer.faqAnimationFrame = window.requestAnimationFrame(() => {
-                answer.faqAnimationFrame = null;
-                answer.style.height = `${targetHeight}px`;
-                answer.style.paddingTop = targetPaddingTop;
-                answer.style.paddingBottom = targetPaddingBottom;
-                answer.style.opacity = "1";
-            });
-
-            afterFaqHeightTransition(answer, () => {
+            afterFaqPanelTransition(answer, () => {
                 cleanFaqAnswerStyles(answer);
 
                 if (options.scroll) {
@@ -169,37 +172,33 @@
                 }
             });
 
+            answer.faqAnimationFrame = window.requestAnimationFrame(() => {
+                answer.faqAnimationFrame = null;
+                item.classList.add("active");
+                answer.style.height = `${targetHeight}px`;
+                answer.style.opacity = "1";
+            });
+
             return;
         }
 
-        item.classList.add("is-closing");
         answer.hidden = false;
         cleanFaqAnswerStyles(answer);
-
-        const currentStyles = window.getComputedStyle(answer);
-        const currentPaddingTop = currentStyles.paddingTop;
-        const currentPaddingBottom = currentStyles.paddingBottom;
-        const currentHeight = answer.scrollHeight;
-
-        answer.style.overflow = "hidden";
-        answer.style.height = `${currentHeight}px`;
-        answer.style.paddingTop = currentPaddingTop;
-        answer.style.paddingBottom = currentPaddingBottom;
+        answer.style.height = `${getPanelHeight(answer)}px`;
         answer.style.opacity = "1";
-        answer.offsetHeight;
+
+        afterFaqPanelTransition(answer, () => {
+            item.classList.remove("is-closing");
+            answer.hidden = true;
+            cleanFaqAnswerStyles(answer);
+        });
 
         answer.faqAnimationFrame = window.requestAnimationFrame(() => {
             answer.faqAnimationFrame = null;
+            item.classList.add("is-closing");
+            item.classList.remove("active");
             answer.style.height = "0px";
-            answer.style.paddingTop = "0px";
-            answer.style.paddingBottom = "0px";
             answer.style.opacity = "0";
-        });
-
-        afterFaqHeightTransition(answer, () => {
-            item.classList.remove("active", "is-closing");
-            answer.hidden = true;
-            cleanFaqAnswerStyles(answer);
         });
     }
 
@@ -212,6 +211,7 @@
                 return;
             }
 
+            ensureFaqAnswerInner(answer);
             setFaqItemState(item, item.classList.contains("active"));
 
             button.addEventListener("click", () => {
@@ -238,19 +238,140 @@
         });
     }
 
-    function setCoverItemState(item, expanded) {
+    function cleanCoverContentStyles(content) {
+        content.style.height = "";
+        content.style.opacity = "";
+        content.style.overflow = "";
+    }
+
+    function cancelCoverAnimation(content) {
+        if (content.coverAnimationFrame) {
+            window.cancelAnimationFrame(content.coverAnimationFrame);
+            content.coverAnimationFrame = null;
+        }
+
+        if (content.coverAnimationTimer) {
+            window.clearTimeout(content.coverAnimationTimer);
+            content.coverAnimationTimer = null;
+        }
+
+        if (content.coverAnimationCleanup) {
+            content.coverAnimationCleanup();
+            content.coverAnimationCleanup = null;
+        }
+    }
+
+    function afterCoverContentTransition(content, callback) {
+        let complete = false;
+
+        function finish() {
+            if (complete) {
+                return;
+            }
+
+            complete = true;
+            content.removeEventListener("transitionend", onTransitionEnd);
+            window.clearTimeout(content.coverAnimationTimer);
+            content.coverAnimationTimer = null;
+            content.coverAnimationCleanup = null;
+            callback();
+        }
+
+        function onTransitionEnd(event) {
+            if (event.target === content && (event.propertyName === "height" || event.propertyName === "opacity")) {
+                finish();
+            }
+        }
+
+        content.addEventListener("transitionend", onTransitionEnd);
+        content.coverAnimationTimer = window.setTimeout(finish, FAQ_ANIMATION_DURATION + 80);
+        content.coverAnimationCleanup = () => {
+            complete = true;
+            content.removeEventListener("transitionend", onTransitionEnd);
+            window.clearTimeout(content.coverAnimationTimer);
+            content.coverAnimationTimer = null;
+        };
+    }
+
+    function setCoverItemState(item, expanded, options = {}) {
         const button = item.querySelector(".insurance-form-accordion-header");
         const content = item.querySelector(".insurance-form-accordion-content");
+        const animate = Boolean(options.animate) && !prefersReducedMotion();
 
-        item.classList.toggle("active", expanded);
+        if (content) {
+            cancelCoverAnimation(content);
+        }
 
         if (button) {
             button.setAttribute("aria-expanded", String(expanded));
         }
 
-        if (content) {
-            content.hidden = !expanded;
+        if (!content) {
+            item.classList.toggle("active", expanded);
+            return;
         }
+
+        const alreadyExpanded = item.classList.contains("active") &&
+            !item.classList.contains("is-closing") &&
+            !content.hidden;
+        const alreadyCollapsed = !item.classList.contains("active") &&
+            !item.classList.contains("is-closing") &&
+            content.hidden;
+
+        if ((expanded && alreadyExpanded) || (!expanded && alreadyCollapsed)) {
+            cleanCoverContentStyles(content);
+            return;
+        }
+
+        if (!animate) {
+            item.classList.toggle("active", expanded);
+            item.classList.remove("is-closing");
+            content.hidden = !expanded;
+            cleanCoverContentStyles(content);
+            return;
+        }
+
+        if (expanded) {
+            item.classList.remove("is-closing");
+            content.hidden = false;
+            cleanCoverContentStyles(content);
+            content.style.height = "0px";
+            content.style.opacity = "0";
+
+            const targetHeight = content.scrollHeight;
+
+            afterCoverContentTransition(content, () => {
+                cleanCoverContentStyles(content);
+            });
+
+            content.coverAnimationFrame = window.requestAnimationFrame(() => {
+                content.coverAnimationFrame = null;
+                item.classList.add("active");
+                content.style.height = `${targetHeight}px`;
+                content.style.opacity = "1";
+            });
+
+            return;
+        }
+
+        content.hidden = false;
+        cleanCoverContentStyles(content);
+        content.style.height = `${getPanelHeight(content)}px`;
+        content.style.opacity = "1";
+
+        afterCoverContentTransition(content, () => {
+            item.classList.remove("is-closing");
+            content.hidden = true;
+            cleanCoverContentStyles(content);
+        });
+
+        content.coverAnimationFrame = window.requestAnimationFrame(() => {
+            content.coverAnimationFrame = null;
+            item.classList.add("is-closing");
+            item.classList.remove("active");
+            content.style.height = "0px";
+            content.style.opacity = "0";
+        });
     }
 
     function initCoverAccordions() {
@@ -268,8 +389,12 @@
 
                 button.addEventListener("click", () => {
                     const shouldOpen = !item.classList.contains("active");
-                    items.forEach((sibling) => setCoverItemState(sibling, false));
-                    setCoverItemState(item, shouldOpen);
+                    items.forEach((sibling) => {
+                        if (sibling !== item) {
+                            setCoverItemState(sibling, false, { animate: true });
+                        }
+                    });
+                    setCoverItemState(item, shouldOpen, { animate: true });
                 });
             });
         });
@@ -327,6 +452,67 @@
             }, { passive: true });
 
             goToSlide(current);
+        });
+    }
+
+    function initMainInsuranceTypesCarousel() {
+        document.querySelectorAll(".main-insurance-types-section").forEach((section) => {
+            const track = section.querySelector(".main-insurance-types-track");
+            const cards = Array.from(section.querySelectorAll(".main-insurance-type-card"));
+            const dots = Array.from(section.querySelectorAll(".main-insurance-types-dot"));
+
+            if (!track || !cards.length || !dots.length) {
+                return;
+            }
+
+            if (track.dataset.carouselReady !== "true") {
+                dots.forEach((dot, index) => {
+                    dot.addEventListener("click", () => {
+                        const card = cards[index];
+
+                        if (!card) {
+                            return;
+                        }
+
+                        track.scrollTo({
+                            left: card.offsetLeft - track.offsetLeft - ((track.clientWidth - card.offsetWidth) / 2),
+                            behavior: prefersReducedMotion() ? "auto" : "smooth",
+                        });
+                    });
+                });
+
+                track.addEventListener("scroll", () => {
+                    window.requestAnimationFrame(updateDots);
+                }, { passive: true });
+
+                track.dataset.carouselReady = "true";
+            }
+
+            function updateDots() {
+                const trackCenter = track.scrollLeft + (track.clientWidth / 2);
+                const currentIndex = cards.reduce((closestIndex, card, index) => {
+                    const closestCard = cards[closestIndex];
+                    const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                    const closestCenter = closestCard.offsetLeft + (closestCard.offsetWidth / 2);
+
+                    return Math.abs(cardCenter - trackCenter) < Math.abs(closestCenter - trackCenter)
+                        ? index
+                        : closestIndex;
+                }, 0);
+
+                dots.forEach((dot, index) => {
+                    const active = index === currentIndex;
+                    dot.classList.toggle("active", active);
+
+                    if (active) {
+                        dot.setAttribute("aria-current", "true");
+                    } else {
+                        dot.removeAttribute("aria-current");
+                    }
+                });
+            }
+
+            updateDots();
         });
     }
 
@@ -633,10 +819,12 @@
         initFaqAccordions();
         initCoverAccordions();
         initTipsCarousel();
+        initMainInsuranceTypesCarousel();
         initOtherTypesDots();
         initRoadScrollAnimation();
         initPageAnimations();
     });
 
+    window.addEventListener("resize", initMainInsuranceTypesCarousel);
     window.addEventListener("resize", initOtherTypesDots);
 })();
