@@ -4586,7 +4586,7 @@ section{
 .tips-heading-section + .guide-wrapper,
 .guide-wrapper {
     max-width: 75rem;
-    min-height: 112rem;
+    min-height: 2rem;
     margin: 1.875rem auto 0;
     padding: 0 0 2.5rem;
 }
@@ -4599,7 +4599,6 @@ section{
 .road-svg {
     display: block;
     width: min(68.75rem, calc(100% + 4rem));
-    height: 93.75rem;
     margin: 0 auto;
     overflow: visible;
     transform: translateX(-3.5rem);
@@ -5820,6 +5819,42 @@ section{
     }
 }
 
+/* Keep plan-column header outlines inside their rounded tops */
+@media (min-width: 55.375rem) {
+    .insurance-cover-table thead th:nth-child(n+2) {
+        overflow: hidden;
+        border-top: 0;
+        border-right: 0;
+        background-clip: padding-box;
+        box-shadow: none;
+    }
+
+    .insurance-cover-table thead th:nth-child(2) {
+        --insurance-plan-outline: #75bd97;
+        border-left: 0;
+    }
+
+    .insurance-cover-table thead th:nth-child(3) {
+        --insurance-plan-outline: #75cfa5;
+    }
+
+    .insurance-cover-table thead th:nth-child(4) {
+        --insurance-plan-outline: #66b8b2;
+    }
+
+    .insurance-cover-table thead th:nth-child(n+2)::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: block;
+        border: 0.0625rem solid var(--insurance-plan-outline);
+        border-bottom: 0;
+        border-radius: 1.25rem 1.25rem 0 0;
+        pointer-events: none;
+    }
+}
+
 /* Comparison table feature-row edge fill */
 @media (min-width: 55.375rem) {
     .insurance-cover-table tbody tr:nth-child(odd) th {
@@ -6531,14 +6566,18 @@ section{
 @media (min-width: 62.0625rem) {
     .tips-heading-section + .guide-wrapper,
     .guide-wrapper {
-        --road-top-y: 23.775rem;
+        --road-top-y: 23.7774rem;
         --road-lane-width: 4.05rem;
         --road-center-width: 0.2531rem;
         --road-center-dash: 1.0125rem;
         --road-center-gap: 1.2656rem;
+        --road-entry-lane-width: 5.0844rem;
+        --road-entry-center-width: 0.3177rem;
+        --road-entry-center-dash: 1.2711rem;
+        --road-entry-center-gap: 1.5889rem;
         width: 1198px;
         max-width: calc(100vw - 2rem);
-        min-height: 75.6152rem;
+        min-height: 40px;;
         margin: 1.875rem auto 0;
         padding: 0;
         overflow: visible;
@@ -6569,18 +6608,18 @@ section{
     }
 
     .road-container::before {
-        top: calc(var(--road-top-y) - (var(--road-lane-width) / 2));
-        height: var(--road-lane-width);
+        top: calc(var(--road-top-y) - (var(--road-entry-lane-width) / 2));
+        height: var(--road-entry-lane-width);
         background: #eeeeee;
     }
 
     .road-container::after {
-        top: calc(var(--road-top-y) - (var(--road-center-width) / 2));
-        height: var(--road-center-width);
+        top: calc(var(--road-top-y) - (var(--road-entry-center-width) / 2));
+        height: var(--road-entry-center-width);
         background-image: repeating-linear-gradient(
             to right,
-            #d7d7d7 0 var(--road-center-dash),
-            transparent var(--road-center-dash) calc(var(--road-center-dash) + var(--road-center-gap))
+            #d7d7d7 0 var(--road-entry-center-dash),
+            transparent var(--road-entry-center-dash) calc(var(--road-entry-center-dash) + var(--road-entry-center-gap))
         );
     }
 
@@ -7353,19 +7392,20 @@ section{
 
 .main-insurance-types-track {
     display: grid;
-    grid-template-columns: repeat(3, minmax(250px, 320px));
+    grid-template-columns: repeat(3, minmax(0, 282px));
     justify-content: center;
-    gap: 1rem;
+    gap: clamp(12px, 1.5vw, 18px);
     outline: none;
 }
 
 .main-insurance-type-card {
     box-sizing: border-box;
+    width: 100%;
+    max-width: 282px;
     min-height: 23rem;
     padding: 1.25rem 1.25rem 1.5rem;
     background: #fff;
     border-radius: 1.25rem;
-    max-width:282px;
     min-height:442px;
 }
 
@@ -7674,3 +7714,1682 @@ section{
     }
 }
 /* End main insurance type icon and typography refinements */
+
+/* Shared FAQ accordion icon */
+.faq-icon,
+.optional-addons-section .faq-icon,
+.topcashback-faq-section .faq-icon,
+.car-insurance-faqs-page .faq-icon,
+.car-insurance-faq-section .faq-icon {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 20px;
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    min-height: 20px;
+    aspect-ratio: 1 / 1;
+    margin: 0;
+    padding: 0;
+    border-width: 2px;
+    border-radius: 50%;
+    font-size: 0;
+    line-height: 0;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 999rem;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    pointer-events: none;
+}
+
+.faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition:
+        opacity 0.2s ease,
+        transform 0.24s ease;
+}
+
+.faq-question[aria-expanded="true"] .faq-icon::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg) scaleX(0);
+}
+
+/* Intentional tablet layout: 768px–1024px */
+@media (min-width: 48rem) and (max-width: 64rem) {
+    .car-insurance-page {
+        --tablet-gutter: 1.5rem;
+        overflow-x: clip;
+    }
+
+    .car-insurance-page img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .insurance-section,
+    .main-insurance-types-section,
+    .insurance-form-section,
+    .whats-covered-section,
+    .tips-heading-section {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: none;
+        padding-right: var(--tablet-gutter);
+        padding-left: var(--tablet-gutter);
+    }
+
+    .insurance-section {
+        margin: 3rem auto;
+    }
+
+    .insurance-section h2 {
+        max-width: 44rem;
+        margin: 0 auto 2rem;
+        font-size: clamp(1.75rem, 3.5vw, 2.125rem);
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .insurance-content {
+        display: grid;
+        grid-template-columns: minmax(13rem, 17.5rem) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(1.75rem, 4vw, 3rem);
+        max-width: 60rem;
+        margin: 0 auto;
+    }
+
+    .insurance-image {
+        width: 100%;
+        max-width: 17.5rem;
+        margin: 0;
+    }
+
+    .insurance-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0;
+        aspect-ratio: 1 / 1;
+        border-radius: clamp(2.5rem, 7vw, 4.5rem);
+        object-fit: cover;
+    }
+
+    .insurance-text {
+        width: 100%;
+        max-width: none;
+    }
+
+    .insurance-text p {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .main-insurance-types-section {
+        margin: 3rem 0;
+    }
+
+    .main-insurance-types-panel {
+        width: 100%;
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: 2.5rem 2rem 2.75rem;
+        border-radius: 3rem;
+    }
+
+    .main-insurance-types-title {
+        max-width: 38rem;
+        margin: 0 auto 2rem;
+        font-size: clamp(1.5rem, 3vw, 1.875rem);
+        line-height: 1.15;
+    }
+
+    .main-insurance-types-carousel {
+        overflow: visible;
+    }
+
+    .main-insurance-types-track {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: 1fr;
+        align-items: stretch;
+        gap: 1.125rem;
+        width: 100%;
+        padding: 0;
+        overflow: visible;
+        scroll-snap-type: none;
+    }
+
+    .main-insurance-type-card {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        min-height: 0;
+        height: 100%;
+        padding: 1.375rem;
+        border-radius: 1.25rem;
+        scroll-snap-align: none;
+    }
+
+    .main-insurance-type-card:nth-child(3) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc((100% - 1.125rem) / 2);
+    }
+
+    .main-insurance-types-pagination {
+        display: none;
+    }
+
+    .insurance-form-section {
+        margin: 3.25rem auto;
+    }
+
+    .insurance-form-copy {
+        max-width: 44rem;
+        margin: 0 auto 1.75rem;
+    }
+
+    .insurance-form-copy h2 {
+        margin-bottom: 0.875rem;
+        font-size: clamp(1.625rem, 3.2vw, 2rem);
+        line-height: 1.15;
+    }
+
+    .insurance-form-copy p {
+        max-width: 42rem;
+        font-size: 1rem;
+        line-height: 1.55;
+    }
+
+    .insurance-cover-table-wrap {
+        width: 100%;
+        max-width: 60rem;
+        padding: 1rem;
+        border-radius: 2rem;
+    }
+
+    .insurance-cover-table {
+        width: 100%;
+    }
+
+    .insurance-cover-table tbody th {
+        padding-right: 0.875rem;
+        padding-left: 1.125rem;
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+
+    .insurance-form-mobile-table {
+        width: 100%;
+        max-width: 45rem;
+        margin: 1.5rem auto 0;
+        padding: 0;
+    }
+
+    .insurance-form-accordion-header {
+        min-height: 3.5rem;
+        padding: 0.625rem 1.125rem;
+        font-size: 0.9375rem;
+    }
+
+    .insurance-form-accordion-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .insurance-form-feature-row {
+        gap: 1rem;
+        padding: 0.875rem 1rem;
+    }
+
+    .insurance-form-feature-label {
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+
+    .whats-covered-section {
+        margin: 0;
+        padding-bottom: 3rem;
+    }
+
+    .whats-covered-section .other-types-heading {
+        max-width: 42rem;
+        margin: 0 auto 0.875rem;
+        padding: 0;
+        font-size: clamp(1.625rem, 3.2vw, 2rem);
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .whats-covered-section > p {
+        max-width: 43rem;
+        margin: 0 auto;
+        padding: 0;
+        font-size: 1rem;
+        line-height: 1.55;
+        text-align: center;
+    }
+
+    .other-types-section {
+        display: block;
+        width: 100%;
+        max-width: 60rem;
+        margin: 1.75rem auto 0;
+        padding: 0;
+        overflow: visible;
+    }
+
+    .other-types-slider {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        scroll-snap-type: none;
+    }
+
+    .other-types-slider .types-card-container {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        scroll-snap-align: none;
+    }
+
+    .other-types-slider .types-card {
+        min-height: 20rem;
+        height: 100%;
+        padding: 1.375rem;
+        border-radius: 1.5rem;
+    }
+
+    .other-types-slider .types-card img {
+        width: 5.5rem;
+        height: 5.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .other-types-slider .types-card h3 {
+        margin-bottom: 0.625rem;
+        font-size: 1.125rem;
+    }
+
+    .other-types-slider .types-card p {
+        font-size: 0.9375rem;
+        line-height: 1.5;
+    }
+
+    .whats-covered-section > .carousel-dots {
+        display: none;
+    }
+
+    .optional-addons-section {
+        box-sizing: border-box;
+        display: block;
+        width: calc(100% - (var(--tablet-gutter) * 2));
+        max-width: 60rem;
+        min-height: 0 !important;
+        margin: 0 auto 3rem;
+        padding: 2.75rem 2rem;
+        border-radius: 3rem;
+    }
+
+    .optional-addons-section .faq-left {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .optional-addons-section .faq-title {
+        max-width: 40rem;
+        margin: 0 auto 0.875rem;
+        font-size: clamp(1.625rem, 3.2vw, 2rem);
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .optional-addons-section .faq-description {
+        max-width: 43rem;
+        margin: 0 auto 1.75rem;
+        padding: 0;
+        font-size: 1rem;
+        line-height: 1.55;
+        text-align: center;
+    }
+
+    .optional-addons-section .faq-container2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem 1rem;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .optional-addons-section .faq-item2 {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        border-radius: 1.25rem;
+    }
+
+    .optional-addons-section .faq-item2:last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: calc((100% - 1rem) / 2);
+    }
+
+    .optional-addons-section .faq-question {
+        min-height: 3.5rem;
+        padding: 0.75rem 1rem;
+        gap: 0.75rem;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        border-radius: 1.25rem;
+    }
+
+    .optional-addons-section .faq-answer {
+        --faq-answer-padding: 0 1rem 1rem 3rem;
+    }
+
+    .tips-heading-section {
+        margin: 0;
+        padding-top: 3rem;
+    }
+
+    .tips-heading-section h2 {
+        max-width: 42rem;
+        margin: 0 auto;
+        font-size: clamp(1.625rem, 3.2vw, 2rem);
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .tips-heading-section p {
+        max-width: 43rem;
+        margin: 0 auto;
+        padding-top: 0.875rem;
+        font-size: 1rem;
+        line-height: 1.55;
+        text-align: center;
+    }
+
+    .tips-heading-section + .guide-wrapper,
+    .guide-wrapper,
+    .road-container,
+    .road-car {
+        display: none !important;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel {
+        display: block;
+        width: calc(100% - (var(--tablet-gutter) * 2));
+        max-width: 34rem;
+        margin: 1.75rem auto 3.5rem;
+        overflow: visible;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .carousel-track {
+        min-height: 21rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card {
+        width: 100%;
+        max-width: none;
+        min-height: 19rem;
+        margin: 0;
+        padding: 1.75rem;
+        border-radius: 1.5rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-header img {
+        width: 4.5rem !important;
+        margin-left: -1rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-title {
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-body {
+        font-size: 0.9375rem;
+        line-height: 1.55;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .pagination {
+        bottom: -2.25rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .dot {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .topcashback-faq-section,
+    .car-insurance-faqs-page .faq-section,
+    .car-insurance-faq-section {
+        box-sizing: border-box;
+        display: block;
+        width: calc(100% - (var(--tablet-gutter) * 2));
+        max-width: 60rem;
+        margin: 0 auto 3rem;
+        padding: 2.75rem 2rem;
+        background: #eef8f4;
+        border-radius: 3rem;
+    }
+
+    .topcashback-faq-section .faq-left,
+    .car-insurance-faqs-page .faq-left,
+    .car-insurance-faq-section .faq-left {
+        width: 100%;
+        max-width: 45rem;
+        margin: 0 auto;
+    }
+
+    .topcashback-faq-section .faq-right,
+    .car-insurance-faqs-page .faq-right,
+    .car-insurance-faq-section .faq-right {
+        display: none;
+    }
+
+    .topcashback-faq-section .faq-title,
+    .car-insurance-faqs-page .faq-title,
+    .car-insurance-faq-section .faq-title {
+        margin: 0 0 1.5rem;
+        font-size: clamp(1.625rem, 3.2vw, 2rem);
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .topcashback-faq-section .faq-item,
+    .car-insurance-faqs-page .faq-item,
+    .car-insurance-faq-section .faq-item,
+    .topcashback-faq-section .faq-item.active,
+    .car-insurance-faqs-page .faq-item.active,
+    .car-insurance-faq-section .faq-item.active {
+        width: 100%;
+        max-width: none;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .topcashback-faq-section .faq-question,
+    .car-insurance-faqs-page .faq-question,
+    .car-insurance-faq-section .faq-question {
+        min-height: 3.5rem;
+        padding: 0.75rem 1rem;
+        gap: 0.75rem;
+        font-size: 0.9375rem;
+        line-height: 1.35;
+    }
+
+    .topcashback-faq-section .faq-answer,
+    .car-insurance-faqs-page .faq-answer,
+    .car-insurance-faq-section .faq-answer {
+        --faq-answer-padding: 0 1rem 1rem 3rem;
+    }
+}
+
+/* Mobile reference layout: intentionally designed below the tablet breakpoint */
+@media (max-width: 767.98px) {
+    :root {
+        --mobile-gutter: clamp(2rem, 10.5vw, 2.875rem);
+    }
+
+    .car-insurance-page {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+    }
+
+    .car-insurance-page *,
+    .car-insurance-page *::before,
+    .car-insurance-page *::after {
+        box-sizing: border-box;
+    }
+
+    .car-insurance-page img,
+    .car-insurance-page svg {
+        max-width: 100%;
+    }
+
+    .insurance-section {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 4rem var(--mobile-gutter) 5rem;
+    }
+
+    .insurance-section h2 {
+        max-width: 21rem;
+        margin: 0 auto 2.25rem;
+        font-size: clamp(1.75rem, 7.2vw, 2rem);
+        line-height: 1.12;
+        text-align: center;
+    }
+
+    .insurance-content {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .insurance-image,
+    .insurance-text {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .insurance-image img {
+        display: block;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        margin: 0;
+        border-radius: clamp(2.75rem, 13vw, 3.75rem);
+        object-fit: cover;
+    }
+
+    .insurance-text p {
+        margin: 0 0 1.75rem;
+        padding: 0;
+        font-size: clamp(1rem, 4.2vw, 1.125rem);
+        line-height: 1.48;
+        text-align: left;
+    }
+
+    .insurance-text p:last-child {
+        margin-bottom: 0;
+    }
+
+    .main-insurance-types-section {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-insurance-types-panel {
+        width: 100%;
+        max-width: none;
+        padding: 4.25rem var(--mobile-gutter) 4.75rem;
+        border-radius: 0;
+    }
+
+    .main-insurance-types-title {
+        max-width: 22rem;
+        margin: 0 auto 3rem;
+        font-size: clamp(1.75rem, 7.2vw, 2rem);
+        line-height: 1.12;
+        text-align: center;
+    }
+
+    .main-insurance-types-carousel {
+        width: 100%;
+        overflow: visible;
+    }
+
+    .main-insurance-types-track {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.125rem;
+        width: 100%;
+        padding: 0;
+        overflow: visible;
+        scroll-snap-type: none;
+    }
+
+    .main-insurance-type-card {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        min-height: 0;
+        padding: 1.75rem 1.625rem 2rem;
+        border-radius: 2.25rem;
+        scroll-snap-align: none;
+    }
+
+    .main-insurance-type-icon {
+        width: 5rem;
+        height: 2.875rem;
+        margin-bottom: 1.25rem;
+        border-radius: 999rem;
+    }
+
+    .main-insurance-type-icon img {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    .main-insurance-type-card h3 {
+        margin-bottom: 1rem;
+        font-size: clamp(1.125rem, 4.8vw, 1.375rem);
+        line-height: 1.2;
+    }
+
+    .main-insurance-type-card p {
+        font-size: clamp(0.9375rem, 4vw, 1.0625rem);
+        line-height: 1.5;
+    }
+
+    .main-insurance-type-card p + p {
+        margin-top: 1.5rem;
+    }
+
+    .main-insurance-types-pagination {
+        display: none;
+    }
+
+    .insurance-form-section {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 4.75rem 1.25rem 5rem;
+    }
+
+    .insurance-form-copy {
+        width: 100%;
+        max-width: 22rem;
+        margin: 0 auto;
+    }
+
+    .insurance-form-copy h2 {
+        margin-bottom: 1.5rem;
+        font-size: clamp(1.75rem, 7.2vw, 2rem);
+        line-height: 1.12;
+        text-align: center;
+    }
+
+    .insurance-form-copy p {
+        max-width: 21rem;
+        font-size: clamp(1rem, 4.2vw, 1.125rem);
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    .insurance-cover-table-wrap {
+        display: none;
+    }
+
+    .insurance-form-mobile-table {
+        display: block;
+        width: 100%;
+        max-width: 25rem;
+        margin: 2.5rem auto 0;
+        padding: 1.75rem 1.25rem;
+        overflow: hidden;
+        border: 0.25rem solid #e5e5e5;
+        border-radius: 3rem;
+    }
+
+    .insurance-form-accordion-item,
+    .insurance-form-accordion-item.active,
+    .insurance-form-accordion-item.is-closing {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .insurance-form-accordion-item + .insurance-form-accordion-item {
+        margin-top: 1rem;
+    }
+
+    .insurance-form-accordion-header {
+        min-height: 3.5rem;
+        padding: 0.5rem 0.625rem 0.5rem 1.25rem;
+        gap: 0.75rem;
+        font-size: clamp(0.875rem, 3.9vw, 1rem);
+        line-height: 1.2;
+        border-radius: 999rem;
+    }
+
+    .insurance-form-accordion-icon {
+        display: flex;
+        flex: 0 0 2.75rem;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+    }
+
+    .insurance-form-accordion-icon svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .car-insurance-page .insurance-form-accordion-content {
+        --insurance-form-accordion-gap: 0.75rem;
+        width: 100%;
+    }
+
+    .insurance-form-feature-row {
+        min-height: 3.5rem;
+        padding: 0.875rem 1rem;
+        gap: 0.75rem;
+    }
+
+    .insurance-form-feature-label {
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+
+    .whats-covered-section {
+        width: 100%;
+        margin: 0;
+        padding: 4.75rem 0 4.5rem;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .whats-covered-section .other-types-heading {
+        max-width: 22rem;
+        margin: 0 auto 2.25rem;
+        padding: 0 var(--mobile-gutter);
+        font-size: clamp(1.75rem, 7.2vw, 2rem);
+        line-height: 1.12;
+        text-align: center;
+    }
+
+    .whats-covered-section > p {
+        max-width: 26rem;
+        margin: 0 auto;
+        padding: 0 var(--mobile-gutter);
+        font-size: clamp(1rem, 4.2vw, 1.125rem);
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    .other-types-section {
+        width: 100%;
+        margin: 2.5rem 0 0;
+        padding: 0 0 2.25rem;
+        overflow: visible;
+    }
+
+    .other-types-slider {
+        display: flex;
+        gap: 1.5rem;
+        width: 100%;
+        margin: 0;
+        padding: 0 1.5rem;
+        overflow-x: auto;
+        scroll-padding-left: 1.5rem;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .other-types-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .other-types-slider .types-card-container {
+        flex: 0 0 min(82vw, 22.5rem);
+        width: min(82vw, 22.5rem);
+        min-width: min(82vw, 22.5rem);
+        max-width: none;
+        margin: 0;
+        scroll-snap-align: start;
+    }
+
+    .other-types-slider .types-card {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        min-height: 22rem;
+        margin: 0;
+        padding: 1.75rem 1.5rem 2rem;
+        border-width: 0.125rem;
+        border-radius: 1.75rem;
+    }
+
+    .other-types-slider .types-card img {
+        width: 6.75rem;
+        height: 6.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .other-types-slider .types-card h3 {
+        margin-bottom: 1.25rem;
+        font-size: clamp(1.25rem, 5.4vw, 1.5rem);
+        line-height: 1.15;
+    }
+
+    .other-types-slider .types-card p {
+        font-size: clamp(0.9375rem, 4vw, 1.0625rem);
+        line-height: 1.5;
+    }
+
+    .whats-covered-section > .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.625rem;
+        margin: 0.25rem auto 0;
+        padding: 0 1.25rem;
+    }
+
+    .whats-covered-section > .carousel-dots .dot {
+        width: 0.75rem;
+        min-width: 0.75rem;
+        height: 0.75rem;
+        min-height: 0.75rem;
+        padding: 0;
+    }
+
+    .optional-addons-section {
+        display: block;
+        width: 100%;
+        max-width: none;
+        min-height: 0 !important;
+        margin: 0;
+        padding: 4.75rem var(--mobile-gutter) 5rem;
+        border-radius: 0;
+    }
+
+    .optional-addons-section .faq-left {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .optional-addons-section .faq-title {
+        max-width: 22rem;
+        margin: 0 auto 2rem;
+        font-size: clamp(1.75rem, 7.2vw, 2rem);
+        line-height: 1.12;
+        text-align: center;
+    }
+
+    .optional-addons-section .faq-description {
+        max-width: 23rem;
+        margin: 0 auto 2.5rem;
+        padding: 0;
+        font-size: clamp(1rem, 4.2vw, 1.125rem);
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    .optional-addons-section .faq-container2 {
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+        width: 100%;
+        max-width: 23rem;
+        margin: 0 auto;
+    }
+
+    .optional-addons-section .faq-item2 {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        margin: 0;
+        border-radius: 1.75rem;
+    }
+
+    .optional-addons-section .faq-item2:nth-child(1) { order: 1; }
+    .optional-addons-section .faq-item2:nth-child(2) { order: 2; }
+    .optional-addons-section .faq-item2:nth-child(3) { order: 5; }
+    .optional-addons-section .faq-item2:nth-child(4) { order: 9; }
+    .optional-addons-section .faq-item2:nth-child(5) { order: 7; }
+    .optional-addons-section .faq-item2:nth-child(6) { order: 8; }
+    .optional-addons-section .faq-item2:nth-child(7) { order: 4; }
+    .optional-addons-section .faq-item2:nth-child(8) { order: 6; }
+    .optional-addons-section .faq-item2:nth-child(9) { order: 3; }
+
+    .optional-addons-section .faq-question {
+        min-height: 4.25rem;
+        padding: 0.75rem 1.25rem;
+        gap: 0.875rem;
+        font-size: clamp(0.9375rem, 4.1vw, 1.0625rem);
+        line-height: 1.25;
+        border-radius: 1.75rem;
+    }
+
+    .optional-addons-section .faq-icon {
+        flex: 0 0 1.75rem;
+        width: 1.75rem;
+        height: 1.75rem;
+        margin: 0;
+        font-size: 1.125rem;
+        border-width: 0.125rem;
+    }
+
+    .optional-addons-section .faq-answer {
+        --faq-answer-padding: 0 1.25rem 1.25rem 3.875rem;
+    }
+
+    .optional-addons-section .faq-answer p {
+        padding: 0;
+        font-size: 0.9375rem;
+        line-height: 1.5;
+    }
+
+    .tips-heading-section {
+        width: 100%;
+        margin: 0;
+        padding: 5rem var(--mobile-gutter) 0;
+    }
+
+    .tips-heading-section h2 {
+        max-width: 22rem;
+        margin: 0 auto 2.5rem;
+        font-size: clamp(1.75rem, 7.2vw, 2rem);
+        line-height: 1.12;
+        text-align: center;
+    }
+
+    .tips-heading-section p {
+        max-width: 23rem;
+        margin: 0 auto;
+        padding: 0;
+        font-size: clamp(1rem, 4.2vw, 1.125rem);
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    .tips-heading-section + .guide-wrapper {
+        display: none !important;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel {
+        display: block;
+        width: calc(100% - 2.5rem);
+        max-width: 26.75rem;
+        margin: 2.75rem auto 6.5rem;
+        overflow: visible;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .carousel-track {
+        min-height: 29rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .slide {
+        width: 100%;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card {
+        width: 100%;
+        max-width: none;
+        min-height: 26.5rem;
+        margin: 0;
+        padding: 2rem 1.875rem 4.75rem;
+        border-radius: 2rem;
+        background: #e7e8ea;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-header {
+        align-items: center;
+        gap: 1.125rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-header img {
+        width: 4.75rem !important;
+        max-height: 7rem;
+        margin-left: -0.5rem;
+        object-fit: contain;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-title {
+        font-size: clamp(1rem, 4.4vw, 1.125rem);
+        line-height: 1.25;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .card-body {
+        font-size: clamp(0.9375rem, 4.1vw, 1.0625rem);
+        line-height: 1.5;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .pagination {
+        bottom: 1.625rem;
+        gap: 0.25rem;
+        width: 100%;
+        padding: 0 1.25rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .dot {
+        width: 2.125rem;
+        min-width: 2.125rem;
+        height: 2.75rem;
+        min-height: 2.75rem;
+        padding: 0;
+        font-size: 1rem;
+    }
+
+    .topcashback-faq-section,
+    .car-insurance-faq-section,
+    .car-insurance-faqs-page .faq-section {
+        display: block;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 4.75rem var(--mobile-gutter) 5rem;
+        background: #eef8f4;
+        border-radius: 0;
+    }
+
+    .topcashback-faq-section {
+        margin-top: 0 !important;
+    }
+
+    .topcashback-faq-section .faq-left,
+    .car-insurance-faq-section .faq-left,
+    .car-insurance-faqs-page .faq-left {
+        width: 100%;
+        max-width: 23rem;
+        margin: 0 auto;
+    }
+
+    .topcashback-faq-section .faq-right,
+    .car-insurance-faq-section .faq-right,
+    .car-insurance-faqs-page .faq-right {
+        display: none;
+    }
+
+    .topcashback-faq-section .faq-title,
+    .car-insurance-faq-section .faq-title,
+    .car-insurance-faqs-page .faq-title {
+        margin: 0 0 2rem;
+        font-size: clamp(1.75rem, 7.2vw, 2rem);
+        line-height: 1.12;
+        text-align: center;
+    }
+
+    .topcashback-faq-section .faq-item,
+    .car-insurance-faq-section .faq-item,
+    .car-insurance-faqs-page .faq-item,
+    .topcashback-faq-section .faq-item.active,
+    .car-insurance-faq-section .faq-item.active,
+    .car-insurance-faqs-page .faq-item.active {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+    }
+
+    .topcashback-faq-section .faq-item + .faq-item,
+    .car-insurance-faq-section .faq-item + .faq-item,
+    .car-insurance-faqs-page .faq-item + .faq-item {
+        margin-top: 0.75rem;
+    }
+
+    .topcashback-faq-section .faq-question,
+    .car-insurance-faq-section .faq-question,
+    .car-insurance-faqs-page .faq-question {
+        min-height: 4rem;
+        padding: 0.75rem 0;
+        gap: 0.875rem;
+        font-size: clamp(0.9375rem, 4.1vw, 1.0625rem);
+        line-height: 1.3;
+    }
+
+    .topcashback-faq-section .faq-icon,
+    .car-insurance-faq-section .faq-icon,
+    .car-insurance-faqs-page .faq-icon {
+        flex: 0 0 1.75rem;
+        width: 1.75rem;
+        height: 1.75rem;
+        margin: 0;
+        font-size: 1.125rem;
+        border-width: 0.125rem;
+    }
+
+    .topcashback-faq-section .faq-answer,
+    .car-insurance-faq-section .faq-answer,
+    .car-insurance-faqs-page .faq-answer {
+        --faq-answer-padding: 0 0 1.25rem 2.625rem;
+    }
+
+    .topcashback-faq-section .faq-answer p,
+    .topcashback-faq-section .faq-answer li,
+    .car-insurance-faq-section .faq-answer p,
+    .car-insurance-faq-section .faq-answer li,
+    .car-insurance-faqs-page .faq-answer p,
+    .car-insurance-faqs-page .faq-answer li {
+        padding-right: 0;
+        font-size: 0.9375rem;
+        line-height: 1.5;
+    }
+}
+
+/* Unified accordion open states and tips progress controls */
+.topcashback-faq-section .faq-item,
+.car-insurance-faq-section .faq-item,
+.car-insurance-faqs-page .faq-item {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 1.75rem;
+    box-shadow: none;
+}
+
+.topcashback-faq-section .faq-item + .faq-item,
+.car-insurance-faq-section .faq-item + .faq-item,
+.car-insurance-faqs-page .faq-item + .faq-item {
+    margin-top: 0.375rem;
+}
+
+.topcashback-faq-section .faq-item.active,
+.topcashback-faq-section .faq-item.is-closing,
+.car-insurance-faq-section .faq-item.active,
+.car-insurance-faq-section .faq-item.is-closing,
+.car-insurance-faqs-page .faq-item.active,
+.car-insurance-faqs-page .faq-item.is-closing {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    overflow: hidden;
+    background: #fff !important;
+    border: 0;
+    border-radius: 1.75rem;
+    box-shadow: none;
+}
+
+.topcashback-faq-section .faq-question,
+.car-insurance-faq-section .faq-question,
+.car-insurance-faqs-page .faq-question {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 4rem;
+    margin: 0;
+    padding: 1rem 1.5rem;
+    gap: 0.75rem;
+    border: 0;
+    border-radius: 1.75rem;
+    box-shadow: none;
+}
+
+.topcashback-faq-section .faq-item.active > .faq-question,
+.topcashback-faq-section .faq-item.is-closing > .faq-question,
+.car-insurance-faq-section .faq-item.active > .faq-question,
+.car-insurance-faq-section .faq-item.is-closing > .faq-question,
+.car-insurance-faqs-page .faq-item.active > .faq-question,
+.car-insurance-faqs-page .faq-item.is-closing > .faq-question {
+    border-radius: 1.75rem 1.75rem 0 0;
+}
+
+.topcashback-faq-section .faq-question-text,
+.car-insurance-faq-section .faq-question-text,
+.car-insurance-faqs-page .faq-question-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.28;
+}
+
+.topcashback-faq-section .faq-answer,
+.car-insurance-faq-section .faq-answer,
+.car-insurance-faqs-page .faq-answer,
+.optional-addons-section .faq-answer {
+    padding: 0 !important;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.topcashback-faq-section .faq-answer,
+.car-insurance-faq-section .faq-answer,
+.car-insurance-faqs-page .faq-answer {
+    --faq-answer-padding: 0 1.75rem 1.75rem;
+}
+
+.topcashback-faq-section .faq-answer-inner,
+.car-insurance-faq-section .faq-answer-inner,
+.car-insurance-faqs-page .faq-answer-inner {
+    padding: var(--faq-answer-padding);
+}
+
+.topcashback-faq-section .faq-answer p,
+.topcashback-faq-section .faq-answer li,
+.car-insurance-faq-section .faq-answer p,
+.car-insurance-faq-section .faq-answer li,
+.car-insurance-faqs-page .faq-answer p,
+.car-insurance-faqs-page .faq-answer li {
+    margin-top: 0;
+    padding: 0;
+    color: #3d3d3d !important;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.48;
+}
+
+.topcashback-faq-section .faq-answer p:last-child,
+.topcashback-faq-section .faq-answer li:last-child,
+.car-insurance-faq-section .faq-answer p:last-child,
+.car-insurance-faq-section .faq-answer li:last-child,
+.car-insurance-faqs-page .faq-answer p:last-child,
+.car-insurance-faqs-page .faq-answer li:last-child {
+    margin-bottom: 0;
+}
+
+.optional-addons-section .faq-item2,
+.optional-addons-section .faq-item2.active,
+.optional-addons-section .faq-item2.is-closing {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    overflow: hidden;
+    background: #fff;
+    border: 0;
+    border-radius: 1.75rem;
+    box-shadow: none;
+}
+
+.optional-addons-section .faq-question {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 4.25rem;
+    margin: 0;
+    padding: 0.875rem 1.25rem;
+    gap: 0.875rem;
+    border: 0;
+    border-radius: 1.75rem;
+    box-shadow: none;
+}
+
+.optional-addons-section .faq-item2.active > .faq-question,
+.optional-addons-section .faq-item2.is-closing > .faq-question {
+    border-radius: 1.75rem 1.75rem 0 0;
+}
+
+.optional-addons-section .faq-question-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.28;
+}
+
+.optional-addons-section .faq-answer {
+    --faq-answer-padding: 0 1.5rem 1.5rem;
+}
+
+.optional-addons-section .faq-answer-inner {
+    padding: var(--faq-answer-padding);
+}
+
+.optional-addons-section .faq-answer p,
+.optional-addons-section .faq-answer li {
+    margin-top: 0;
+    padding: 0;
+    color: #3d3d3d !important;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.48;
+}
+
+.optional-addons-section .faq-answer p:last-child,
+.optional-addons-section .faq-answer li:last-child {
+    margin-bottom: 0;
+}
+
+.faq-icon,
+.optional-addons-section .faq-icon,
+.topcashback-faq-section .faq-icon,
+.car-insurance-faqs-page .faq-icon,
+.car-insurance-faq-section .faq-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1.25rem;
+    width: 1.25rem;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    min-height: 1.25rem;
+    margin: 0;
+    padding: 0;
+    border-width: 0.125rem;
+    border-radius: 50%;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+    width: 0.5rem;
+    height: 0.125rem;
+}
+
+.faq-question:focus-visible {
+    outline: none;
+}
+
+.faq-question:focus-visible .faq-icon {
+    box-shadow: 0 0 0 0.1875rem rgba(29, 79, 58, 0.18);
+}
+
+.car-insurance-page .faq-answer,
+.faq-answer {
+    transition:
+        height 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 55.3125rem) {
+    .insurance-form-mobile-table {
+        --cover-accordion-inline: 1.25rem;
+        width: calc(100% - 2.5rem);
+        max-width: 45rem;
+        margin: 2rem auto 0;
+        padding: 1.75rem var(--cover-accordion-inline);
+        overflow: hidden;
+        background: #fff;
+        border: 4px solid #e5e5e5;
+        border-radius: 3rem;
+        box-shadow: none;
+    }
+
+    .insurance-form-accordion-item,
+    .insurance-form-accordion-item.active,
+    .insurance-form-accordion-item.is-closing {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .insurance-form-accordion-item + .insurance-form-accordion-item {
+        margin-top: 1rem;
+    }
+
+    .insurance-form-accordion-header {
+        width: 100%;
+        min-height: 4rem;
+        margin: 0;
+        padding: 0.5rem 0.625rem 0.5rem 1.25rem;
+        gap: 0.75rem;
+        font-size: 1rem;
+        line-height: 1.2;
+        border-radius: 999rem;
+        box-shadow: none;
+    }
+
+    .insurance-form-accordion-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 2.75rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+    }
+
+    .insurance-form-accordion-icon svg {
+        width: 1.125rem;
+        height: 1.125rem;
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .insurance-form-accordion-header:focus-visible {
+        outline: none;
+    }
+
+    .insurance-form-accordion-header:focus-visible .insurance-form-accordion-icon {
+        box-shadow: 0 0 0 0.1875rem rgba(255, 255, 255, 0.28);
+    }
+
+    .car-insurance-page .insurance-form-accordion-content {
+        --insurance-form-accordion-gap: 1.5rem;
+        width: auto;
+        margin-right: calc(var(--cover-accordion-inline) * -1);
+        margin-left: calc(var(--cover-accordion-inline) * -1);
+    }
+
+    .car-insurance-page .insurance-form-accordion-item.active > .insurance-form-accordion-content {
+        margin-top: var(--insurance-form-accordion-gap);
+    }
+
+    .insurance-form-feature-row {
+        min-height: 4.625rem;
+        padding: 1rem 1.75rem;
+        gap: 1rem;
+    }
+
+    .insurance-form-feature-label,
+    .insurance-form-feature-row span:first-child {
+        font-size: 0.9375rem;
+        line-height: 1.42;
+    }
+
+    .insurance-form-feature-row .comparison-icon {
+        flex: 0 0 2.25rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 0.25rem;
+    }
+
+    .insurance-form-feature-row .comparison-icon img[width="18"] {
+        width: 1.125rem;
+    }
+
+    .insurance-form-feature-row .comparison-icon img[width="16"] {
+        width: 1rem;
+    }
+}
+
+.tip-number,
+.tip-card .tip-number,
+.pagination .dot {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1.75rem;
+    width: 1.75rem;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    min-height: 1.75rem;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    text-align: center;
+    background: transparent;
+    border: 0.0625rem solid #333;
+    border-radius: 50%;
+    box-shadow: none;
+    transform: none;
+}
+
+.tip-number,
+.tip-card .tip-number {
+    margin: auto auto 0;
+    background: #fff;
+}
+
+.pagination {
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+}
+
+.pagination .dot.active,
+.pagination .dot[aria-current="true"] {
+    color: #fff;
+    font-weight: 400;
+    background: #333;
+    border-color: #333;
+}
+
+.pagination .dot:not(.active):not([aria-current="true"]) {
+    color: #333;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #333;
+}
+
+.pagination .dot:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.pagination .dot:focus-visible:not(.active):not([aria-current="true"]) {
+    background: rgba(51, 51, 51, 0.08);
+}
+
+@media (max-width: 64rem) {
+    .tips-heading-section + .guide-wrapper + .carousel .card {
+        padding-bottom: 4.75rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .pagination {
+        top: auto;
+        bottom: 4rem;
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .tips-heading-section + .guide-wrapper + .carousel .dot {
+        width: 1.75rem;
+        min-width: 1.75rem;
+        height: 1.75rem;
+        min-height: 1.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .topcashback-faq-section,
+    .car-insurance-faq-section,
+    .car-insurance-faqs-page .faq-section {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .topcashback-faq-section .faq-left,
+    .car-insurance-faq-section .faq-left,
+    .car-insurance-faqs-page .faq-left {
+        max-width: none;
+    }
+
+    .topcashback-faq-section .faq-question,
+    .car-insurance-faq-section .faq-question,
+    .car-insurance-faqs-page .faq-question {
+        min-height: 4rem;
+        padding: 0.875rem 1.25rem;
+    }
+
+    .topcashback-faq-section .faq-answer,
+    .car-insurance-faq-section .faq-answer,
+    .car-insurance-faqs-page .faq-answer {
+        --faq-answer-padding: 0 1.5rem 1.5rem;
+    }
+
+    .topcashback-faq-section .faq-question-text,
+    .car-insurance-faq-section .faq-question-text,
+    .car-insurance-faqs-page .faq-question-text {
+        font-size: clamp(15px, 4.1vw, 17px);
+    }
+
+    .optional-addons-section .faq-question-text {
+        font-size: clamp(15px, 4.1vw, 17px);
+    }
+
+    .topcashback-faq-section .faq-answer p,
+    .topcashback-faq-section .faq-answer li,
+    .car-insurance-faq-section .faq-answer p,
+    .car-insurance-faq-section .faq-answer li,
+    .car-insurance-faqs-page .faq-answer p,
+    .car-insurance-faqs-page .faq-answer li {
+        font-size: 14px;
+    }
+
+    .optional-addons-section .faq-answer p,
+    .optional-addons-section .faq-answer li {
+        font-size: 14px;
+    }
+
+    .insurance-form-mobile-table {
+        width: calc(100% + 1.5rem);
+        max-width: none;
+        margin-right: -0.75rem;
+        margin-left: -0.75rem;
+    }
+
+    .insurance-form-feature-row {
+        min-height: 4.625rem;
+        padding: 1rem 1.5rem;
+    }
+}
+
+/* Keep the Third-party, Fire and Theft heading comfortably centred on two lines. */
+.insurance-form-plan-label--fire-theft {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2.75rem;
+    line-height: 1.08;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.insurance-form-plan-label--fire-theft > span {
+    display: block;
+}
+
+@media (min-width: 55.375rem) {
+    .insurance-cover-table thead th.insurance-cover-table__plan--fire-theft::before {
+        content: "";
+        top: 50%;
+        right: 0.60rem;
+        left: 0.60rem;
+        height: 2.875rem;
+        transform: translateY(-50%);
+    }
+
+    .insurance-cover-table__plan-label--fire-theft {
+        position: absolute;
+        top: 50%;
+        right: 0.60rem;
+        left: 0.60rem;
+        z-index: 3;
+        display: flex;
+        height: 2.875rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 0.3rem 0.75rem;
+        transform: translateY(-50%);
+        color: #FFFFFF;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        line-height: 1.08;
+        text-align: center;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+
+    .insurance-cover-table__plan-label--fire-theft > span {
+        display: block;
+    }
+}

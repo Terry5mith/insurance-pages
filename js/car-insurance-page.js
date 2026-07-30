@@ -8,13 +8,6 @@
         return reduceMotionQuery.matches;
     }
 
-    function directAccordionItems(container) {
-        return Array.from(container.children).filter((child) => (
-            child.classList &&
-            (child.classList.contains("faq-item") || child.classList.contains("faq-item2"))
-        ));
-    }
-
     function cleanFaqAnswerStyles(answer) {
         answer.style.height = "";
         answer.style.maxHeight = "";
@@ -215,20 +208,9 @@
             setFaqItemState(item, item.classList.contains("active"));
 
             button.addEventListener("click", () => {
-                const parent = item.parentElement;
-                const siblings = parent ? directAccordionItems(parent) : [item];
                 const shouldOpen = !item.classList.contains("active");
 
-                siblings.forEach((sibling) => sibling.classList.remove("page-animate"));
-
-                siblings.forEach((sibling) => {
-                    const siblingIsOpen = sibling.classList.contains("active") ||
-                        sibling.classList.contains("is-closing");
-
-                    if (sibling !== item && siblingIsOpen) {
-                        setFaqItemState(sibling, false, { animate: true });
-                    }
-                });
+                item.classList.remove("page-animate");
 
                 setFaqItemState(item, shouldOpen, {
                     animate: true,

@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&amp;family=Open+Sans:wght@400;600;700;800&amp;display=swap">
     <link rel="stylesheet" href="css/car-insurance-page.css">
-    <script src="js/car-insurance-page.js" defer></script>
+    <script src="js/car-insurance-page.js?v=20260730-accordion" defer></script>
 </head>
 <body class="car-insurance-page car-insurance-bottom-page">
 <section class="insurance-section">
@@ -104,7 +104,12 @@
                 <tr>
                     <th scope="col" class="insurance-cover-table__feature-heading">Cover feature</th>
                     <th scope="col" class="insurance-cover-table__plan insurance-cover-table__plan--comprehensive">Comprehensive</th>
-                    <th scope="col" class="insurance-cover-table__plan insurance-cover-table__plan--fire-theft">Third-party,<br>Fire and Theft</th>
+                    <th scope="col" class="insurance-cover-table__plan insurance-cover-table__plan--fire-theft">
+                        <span class="insurance-cover-table__plan-label insurance-cover-table__plan-label--fire-theft">
+                            <span>Third-party,</span>
+                            <span>Fire and Theft</span>
+                        </span>
+                    </th>
                     <th scope="col" class="insurance-cover-table__plan insurance-cover-table__plan--third-party">Third-party</th>
                 </tr>
             </thead>
@@ -222,7 +227,10 @@
 
         <div class="insurance-form-accordion-item">
             <button class="insurance-form-accordion-header insurance-form-fire-theft-header" type="button" aria-expanded="false" aria-controls="mobile-cover-fire-theft">
-                <span>Third-party, Fire and Theft</span>
+                <span class="insurance-form-plan-label insurance-form-plan-label--fire-theft">
+                    <span>Third-party,</span>
+                    <span>Fire and Theft</span>
+                </span>
                 <span class="insurance-form-accordion-icon" aria-hidden="true"><svg viewBox="0 0 20 20" width="16" height="16" focusable="false"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
             </button>
             <div class="insurance-form-accordion-content" id="mobile-cover-fire-theft" hidden="hidden">
@@ -911,7 +919,7 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
         </div>
 
         <div class="faq-right">
-            <img src="assets/faq-bird-figma.png" width="900" height="900" alt="">
+            <img style="max-width:413px !important;" src="assets/faq-bird-figma.png" alt="tiptop">
         </div>
 
     </section>
@@ -921,4 +929,3 @@ Because personal accident cover is a 'no-fault' insurance add-on, you can claim 
 
 </body>
 </html>
-
