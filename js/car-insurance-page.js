@@ -467,12 +467,29 @@
                     window.requestAnimationFrame(updateDots);
                 }, { passive: true });
 
+                track.addEventListener("keydown", (event) => {
+                    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    const direction = event.key === "ArrowRight" ? 1 : -1;
+                    const nextIndex = Math.max(0, Math.min(cards.length - 1, getCurrentIndex() + direction));
+                    const card = cards[nextIndex];
+
+                    track.scrollTo({
+                        left: card.offsetLeft - track.offsetLeft - ((track.clientWidth - card.offsetWidth) / 2),
+                        behavior: prefersReducedMotion() ? "auto" : "smooth",
+                    });
+                });
+
                 track.dataset.carouselReady = "true";
             }
 
-            function updateDots() {
+            function getCurrentIndex() {
                 const trackCenter = track.scrollLeft + (track.clientWidth / 2);
-                const currentIndex = cards.reduce((closestIndex, card, index) => {
+                return cards.reduce((closestIndex, card, index) => {
                     const closestCard = cards[closestIndex];
                     const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
                     const closestCenter = closestCard.offsetLeft + (closestCard.offsetWidth / 2);
@@ -481,6 +498,10 @@
                         ? index
                         : closestIndex;
                 }, 0);
+            }
+
+            function updateDots() {
+                const currentIndex = getCurrentIndex();
 
                 dots.forEach((dot, index) => {
                     const active = index === currentIndex;
