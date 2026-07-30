@@ -4340,7 +4340,7 @@ section{
     flex: 1 1 auto;
     min-width: 0;
     font-weight:600;
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 .faq-icon {
@@ -4386,8 +4386,8 @@ section{
 
 .car-insurance-faqs-page .faq-item,
 .topcashback-faq-section .faq-item {
-    padding: 0;
     border-radius: 28px;
+    padding-top:15px;
 }
 
 .car-insurance-faqs-page .faq-item + .faq-item,
@@ -4398,7 +4398,6 @@ section{
 .car-insurance-faqs-page .faq-question,
 .topcashback-faq-section .faq-question {
     min-height: 58px;
-    padding: 20px 30px 20px 30px;
     gap: 12px;
     font-family: 'Montserrat', sans-serif;
 }
@@ -4407,11 +4406,13 @@ section{
 .topcashback-faq-section .faq-item.active {
     padding-right: 0;
     background: #fff !important;
+    max-width:670px;
+    border-radius: 15px;
 }
 
 .car-insurance-faqs-page .faq-answer,
 .topcashback-faq-section .faq-answer {
-    padding: 0 30px 22px 74px !important;
+    padding: 0 30px 10px 30px !important;
 }
 
 .car-insurance-faqs-page .faq-answer p,
@@ -4734,7 +4735,7 @@ section{
 .topcashback-faq-section {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4.25rem 1.25rem 5rem;
+    padding: 70px 40px 70px 70px;
     gap: 4rem;
     margin-bottom:60px;
 }
@@ -4746,7 +4747,6 @@ section{
 
 .topcashback-faq-section .faq-title {
     margin-bottom: 1.875rem;
-    padding: 0 30px 0 30px;;
 }
 
 .topcashback-faq-section .faq-right {
@@ -4756,10 +4756,9 @@ section{
 .topcashback-faq-section .faq-right img {
     display: block;
     width: min(100%, 26rem);
-    max-width: 413px;
+    max-width: 221px;
     height: auto;
-    margin-top:220px;
-    margin-left:-176px
+    margin-top:130px;
 }
 
 @media (max-width: 75rem) {
@@ -7102,7 +7101,7 @@ section{
         font-size: 1.5rem;
         font-weight: 900;
         line-height: 1.12;
-        text-align: left;
+        text-align: center;
     }
 
     .topcashback-faq-section .faq-right,
@@ -7126,7 +7125,7 @@ section{
     .topcashback-faq-section .faq-question,
     .car-insurance-faqs-page .faq-question {
         min-height: 2.5rem;
-        padding: 0;
+        padding: 15px 15px 15px 15px;
         font-size: 0.8125rem;
         font-weight: 600;
         line-height: 1.25;
